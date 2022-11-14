@@ -1,0 +1,13 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-auto-rows: minmax(360px, auto);
+  gap: 2em;
+}
+
+.item {
+  background-color: #f6f6f6;
+  border: 2px dashed #aaa;
+  border-radius: 30px;
+  text-align: center;
+}
