@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>어떤일기</title>
 
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <!-- normalize -->
+    <link rel="stylesheet" href="../static/normalize.css">
+    <!-- header -->
+    <link rel="stylesheet" href="../static/header.css">
+    <!-- main -->
+    <link rel="stylesheet" href="../static/main.css">
+
+</head>
+
+<body>
+    {% include "header.html" %}
+    <div class="container">
+        <div class="item">내용</div>
+        <div class="item">내용</div>
+        <div class="item">내용</div>
+        <div class="item">내용</div>
+        <div class="item">내용</div>
+        <div class="item">내용</div>
+    </div>
+
+    <!-- 무한스크롤 라이브러리 -->
+    <script src="https://cdn.jsdelivr.net/gh/marshallku/infinite-scroll/dist/infiniteScroll.js"></script>
+    <script src="../static/main.js"></script>
 </body>
+
 </html>
