@@ -1,7 +1,7 @@
 @import "//cdn.jsdelivr.net/npm/font-kopub@1.0/kopubbatang.min.css";
 
 * {
-  font-style: 'KoPub Batang';
+  font-family: 'KoPub Batang';
   font-weight: 300;
   text-decoration: none;
 }
