@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f6f6f6;
+}
+
+.logo {
+  margin-left: 30px;
+}
+
+.header_rightBtn {
+  background-color: transparent;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  color: black;
+  height: 30px;
+  margin-right: 30px;
+}

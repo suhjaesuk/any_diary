@@ -1,0 +1,48 @@
+/* Common */
+body{
+  background-color: #f3f3f3;
+  font-size: 16px;
+  line-height: 1.2;
+  color: #AAA;
+}
+
+.logo {
+  width: auto; 
+  height: auto;
+  max-width: 200px;
+  margin-top:10px;
+  margin-left: 100px;
+}
+
+.myjoin_box {
+  background-color: #f6f6f6;
+  width: 95%;
+  max-width: 400px;
+  margin: 3% auto auto auto;
+  box-shadow: 0px 0px 2px 0px #AAA;
+  padding: 80px 50px 100px 50px;
+}
+
+.join_text{
+  margin-bottom:20px;
+  font-weight: 700;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.join_btn {
+  display: flex;
+  justify-content: flex-end;
+  
+}
+.join_btn >button{
+  margin-left: 10px;
+  border-color:#000;
+  background-color: #fff;
+  margin: 0;
+  margin-top:3px;
+  margin-left:10px;
+}

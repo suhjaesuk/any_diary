@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Main Style Sheet -->
+    <!-- CSS -->
+    <link href="{{ url_for('static', filename='post/post.css') }}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <title>일기 작성</title>
+</head>
+
+<script>
+
+    function postDiary() {
+        let title = $('#title').val()
+        let content = $('#content').val()
+        let emoticon = $('#emoticon').val()
+        let date = $('#date').val()
+
+        $.ajax({
+            type: 'POST',
+            url: '/postDiary',
+            data: {
+                title_give: title,
+                content_give: content,
+                // username_give:username,
+                date_give: date,
+                emoticon_give: emoticon
+            },
+            success: function (response) {
+                alert(response['msg'])
+
+            }
+        });
+    }
+</script>
+
+
+<body>
+
+    <h3 class="title">일기 쓰기</h3>
+
+    <!-- Journal Entry Section -->
+    <section class="section journal-section">
+        <div class="container">
+            <div class="container-row container-row-journal">
+                <div class="container-item container-item-journal">
+                    <form id="entryForm" action="">
+                        <form>
+                            <label for="title" class="journal-label">날짜</label>
+                            <label class="journal-label"><input id="date" class="entry-text-title" type="date"
+                                    value="2022-11-15"></label>
+                        </form>
+                        <label for="title" class="journal-label">제목</label>
+                        <input type="text" name="entry-title" id="title" class="entry-text-title"
+                            placeholder="제목은 안적어도 괜찮아요. ✏️" />
+                        <label for="content" class="journal-label">오늘의 일기</label>
+                        <textarea name="daily-entry" id="content" class="entry-text-box"
+                            placeholder="일기를 적어주세요. 💭"></textarea>
+                        <details>
+                            <summary class="journal-label">감정 이모티콘 🔻</summary>
+                            <div class="wrap">
+                                <select class="list" id="emoticon">
+                                    <option selected>오늘의 기분</option>
+                                    <option value="😀">😀</option>
+                                    <option value="😀">😄</option>
+                                    <option value="😀">😆</option>
+                                    <option value="😀">😅</option>
+                                    <option value="😀">🤣</option>
+
+                                </select>
+
+                            </div>
+                        </details>
+                        <button class="btn-main entry-submit-btn" onclick="postDiary()" type="button">작성하기</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
