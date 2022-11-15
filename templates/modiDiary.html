@@ -3,39 +3,22 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Main Style Sheet -->
     <!-- CSS -->
     <link href="{{ url_for('static', filename='post/post.css') }}" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+        <!-- normalize -->
+    <link rel="stylesheet" href="../static/css/normalize.css">
+    <!-- header -->
+    <link rel="stylesheet" href="../static/css/header.css">
+    <!-- global css -->
+    <link rel="stylesheet" href="../static/css/global.css">
+    <!-- content -->
+    <link rel="stylesheet" href="../static/css/readContent.css">
 
     <title>일기 작성</title>
 </head>
-
-<script>
-
-    function postDiary() {
-        let title = $('#title').val()
-        let content = $('#content').val()
-        let emoticon = $('#emoticon').val()
-        let date = $('#date').val()
-
-        $.ajax({
-            type: 'POST',
-            url: '/postDiary.html',
-            data: {title_give: title,
-                content_give: content,
-                // username_give:username,
-                date_give:date,
-                emoticon_give:emoticon
-            },
-            success: function (response) {
-                alert(response['msg'])
-
-            }
-        });
-    }
-</script>
 
 
 <body>
@@ -47,30 +30,31 @@
     <div class="container">
         <div class="container-row container-row-journal">
             <div class="container-item container-item-journal">
-                <form id="entryForm" action="">
-                    <form>
+                <form id="entryForm" action="/modiSave" method="post">
+
                          <label for="title" class="journal-label">날짜</label>
-                        <label class="journal-label"><input id="date" class="entry-text-title" type="date" value="2022-11-15"></label>
-                    </form>
+                        <label class="journal-label"><input name="date" class="entry-text-title" type="date" value={{content.date}}></label>
+
                     <label for="title" class="journal-label">제목</label>
                     <input
                             type="text"
-                            name="entry-title"
+                            name="title"
                             id="title"
                             class="entry-text-title"
                             placeholder="제목은 안적어도 괜찮아요. ✏️"
+                            value = {{content.title}}
                     />
                     <label for="content" class="journal-label">오늘의 일기</label>
                     <textarea
-                            name="daily-entry"
+                            name="content"
                             id="content"
                             class="entry-text-box"
                             placeholder="일기를 적어주세요. 💭"
-                    ></textarea>
+                    >{{content.content}}</textarea>
                     <details>
                         <summary class="journal-label">감정 이모티콘 🔻</summary>
                         <div class="wrap">
-                            <select class="list" id="emoticon">
+                            <select class="list" id="emoticon" name="emoticon">
                                 <option selected>오늘의 기분</option>
                                 <option value="😀">😀</option>
                                 <option value="😀">😄</option>
@@ -82,11 +66,13 @@
 
                         </div>
                     </details>
-                    <button class="btn-main entry-submit-btn" onclick="postDiary()" type="button">작성하기</button>
+                    <input type="hidden" name="contentId" value={{content.contentId}} />
+                    <button class="btn-main entry-submit-btn" form="entryForm" type="submit">수정하기</button>
                 </form>
             </div>
         </div>
     </div>
 </section>
+<script type="text/javascript" src="../static/js/readContent.js"></script>
 </body>
 </html>

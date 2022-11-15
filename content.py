@@ -76,8 +76,42 @@ def delLike_post():
 def deleteContent_post():
     print(request.form['contentId'])
     contentId = request.form['contentId']
-    #db.testLike.delete_one({'contentId':contentId})
+    db.testLike.delete_one({'contentId':contentId})
     return jsonify({'state':'게시글 삭제'})
+
+@app.route('/modiContent', methods=["POST"])
+def modiContent_post():
+    # 게시글 정보 가져오기
+    print('modiContent')
+    contentId = int(request.form['contentId'])
+    print('contentId', contentId)
+    content_info = db.testContent.find_one({'contentId': contentId})
+    print(content_info)
+    temp_date = content_info['date']
+    date = temp_date.strftime("%Y-%m-%d")  # 날짜 파싱
+    content_info['date'] = date
+
+    return render_template('modiDiary.html', content = content_info)
+
+@app.route('/modiSave', methods=["POST"])
+def modiContent_save():
+    print('modi save')
+    print(request.form)
+    contentId = int(request.form['contentId'])
+    doc = {'title': request.form['title'],
+           'content' : request.form['content'],
+           'date' : request.form['date'],
+           'emoticon' : request.form['emoticon']}
+    #db.testContent.update(({'contentId': contentId},{'$set': doc}))
+    db.testContent.update_one(
+        {'contentId': contentId},
+        {"$set":
+             {'title': request.form['title'],
+           'content' : request.form['content'],
+           'date' : request.form['date'],
+           'emoticon' : request.form['emoticon']
+              }})
+    return jsonify({'state':'게시글 수정 저장'})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

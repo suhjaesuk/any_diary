@@ -60,7 +60,10 @@
         </div>
         <hr/>
         <div class="buttons">
-            <button id="contentModi">수정하기</button>
+            <form action="/modiContent" method="post" id="modiForm">
+                <input type="hidden" name="contentId" value="{{content.contentId}}"><br>
+            </form>
+            <button id="contentModi" type="submit" form="modiForm">수정하기</button>
             <button id="contentDel">삭제하기</button>
         </div>
     </div>
