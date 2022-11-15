@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <title>어떤일기</title>
 
-    <!-- Jquery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -14,24 +12,32 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <!-- normalize -->
-    <link rel="stylesheet" href="../static/css/normalize.css">
+    <link rel="stylesheet" href="../static/normalize.css">
     <!-- header -->
-    <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/header.css">
     <!-- global css -->
-    <link rel="stylesheet" href="./static/css/global.css">
+    <link rel="stylesheet" href="./static/global.css">
     <!-- main -->
-    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/main.css">
 
 </head>
 
 <body>
-    {% include "header.html" %}
-    <div class="gridContainer">
-        <!-- 여기 본문 카드 들어옴 -->
-    </div>
+{% include "header.html" %}
 
-    <footer>ⓒ2022 어떤일기</footer>
-    <script src="../static/js/main.js"></script>
+<div class="container w-50 center-block">
+
+	<div class="form-group">
+		<input type="hidden" id="contentId">
+		<input type="hidden" id="username">
+		<h1>글제목</h1>
+		<div id=contentDate>date</div>
+		<br/>
+		<span id=content>글내용</span>
+	</div>
+    <button>수정하기</button><button>삭제하기</button>
+
+</div>
 </body>
 
 </html>
