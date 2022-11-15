@@ -7,7 +7,6 @@ $('.likeClick').click(function () {
     console.log('liked : '+liked)
     let url = '';
 
-    console.log(contentId + ' ::: ' + userId)
     if(liked == "❤"){
         url = '/delLike';
     }else{
@@ -45,16 +44,16 @@ $('#contentModi').click(function(){
 
 $('#contentDel').click(function(){
     let contentId = $('#contentId').val();
-    /*
+
     $.ajax({
         type: 'POST',
         url: '/deleteContent',
         data: {contentId : contentId},
         success: function (response) {
-
+            alert(response['state'])
+            window.location.replace('/')
         }
-    });*/
-    alert('del click')
+    });
 
 })
 
