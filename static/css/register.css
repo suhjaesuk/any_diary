@@ -1,8 +1,6 @@
 /* Common */
 body{
   background-color: #f3f3f3;
-  font-family: 'KoPub Dotum';
-  font-weight: 300;
   font-size: 16px;
   line-height: 1.2;
   color: #AAA;
@@ -12,6 +10,7 @@ body{
   width: auto; 
   height: auto;
   max-width: 200px;
+  margin-top:10px;
   margin-left: 100px;
 }
 
@@ -19,7 +18,7 @@ body{
   background-color: #f6f6f6;
   width: 95%;
   max-width: 400px;
-  margin: 1% auto auto auto;
+  margin: 3% auto auto auto;
 
   box-shadow: 0px 0px 2px 0px #AAA;
   padding: 80px 50px 100px 50px;
