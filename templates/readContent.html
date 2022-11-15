@@ -23,17 +23,20 @@
 </head>
 
 <body>
-    {% include "header.html" %}
-    <div class="gridContainer">
-        <div class="item">내용</div>
-        <div class="item">내용</div>
-        <div class="item">내용</div>
-        <div class="item">내용</div>
-        <div class="item">내용</div>
-        <div class="item">내용</div>
-    </div>
+{% include "header.html" %}
 
-    <script src="../static/main.js"></script>
+<div class="container w-50 center-block">
+
+	<div class="form-group">
+		<input type="hidden" id="contentId">
+		<input type="hidden" id="username">
+		<h1>글제목</h1>
+		<div id=contentDate>date</div>
+		<br/>
+		<span id=content>글내용</span>
+	</div>
+
+</div>
 </body>
 
 </html>
