@@ -42,6 +42,7 @@ def read():
     return render_template('readContent.html', content = content_info, like = like_info)
 
 
+
 @app.route('/searchLike', methods=["GET"])
 def searchLike_post():
     like_in_db = list(db.testLike.find({}, {'_id': False}))
