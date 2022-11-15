@@ -76,7 +76,7 @@ def delLike_post():
 def deleteContent_post():
     print(request.form['contentId'])
     contentId = request.form['contentId']
-    db.testLike.delete_one({'contentId':contentId})
+    #db.testLike.delete_one({'contentId':contentId})
     return jsonify({'state':'게시글 삭제'})
 
 if __name__ == '__main__':
