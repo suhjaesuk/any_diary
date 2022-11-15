@@ -15,13 +15,15 @@ function show_diary() {
         let title = rows[i]['title']
         let content = rows[i]['content']
         // let username = 
-        let date = rows[i]['date']
+        let date = rows[i]['date'].substring(0, 17)
+        let emoticon = rows[i]['emoticon']
         let temp_html = `
-        <div class="item">
+        <div class="item" onclick="location.href ='/contentId=${contentId}'" >
         <h3 class="title">${title}</h3><br>
         <p class="content">${content}</p><br>
         <p class="username">글쓴이</p>
         <p class="date">${date}</p>
+        <p class="emoticon">${emoticon}</p>
     </div>
       `
         $('.gridContainer').prepend(temp_html)
