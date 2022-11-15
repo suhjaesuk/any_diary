@@ -7,8 +7,70 @@
 }
 
 .item {
+<<<<<<< HEAD
   /* background-color: #f6f6f6; */
   border: 1px dashed #aaa;
+=======
+  font-weight: 400;
+  font-size: 1em;
+  line-height: 1.6em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: 2px solid var(--gray-dark);
+  padding: 30px 40px 30px;
+  cursor: pointer;
+}
+
+
+/* 메인 카드 부분 */
+
+hr {
+  width: 40%;
+  border: 0;
+  color: var(--gray-dark);
+  opacity: unset;
+}
+
+.title {
+  font-size: 1.8em;
+  font-weight: 700;
+}
+
+.content {
+  font-size: 1.2em;
+  font-weight: 400;
+
+  /* 높이에 맞춰 글자 수 자르기 */
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  max-height: 8em;
+  overflow: hidden;
+}
+
+.username,
+.date {
+  line-height: 10px;
+  font-size: 1em;
+  font-weight: 300;
+  color: var(--gray-dark);
+}
+
+.emoticon {
+  font-size: 2em;
+  margin-left: auto;
+  margin-top: auto;
+}
+
+
+/* 푸터 */
+
+footer {
+  padding: 20px;
+>>>>>>> a2c9d827f440d7bd00d76732e9af20c6393085b4
   text-align: center;
 }
 
