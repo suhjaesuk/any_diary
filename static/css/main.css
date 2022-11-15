@@ -3,17 +3,19 @@
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   grid-auto-rows: minmax(360px, auto);
   gap: 2em;
-  padding-top: 50px;
+  padding: 40px;
+  background-color: var(--gray-light);
 }
 
 .item {
-  /* background-color: #f6f6f6; */
-  border: 1px dashed #aaa;
-  text-align: center;
-}
-
-.logo {
-  width: 200px;
-  height: 120px;
-  object-fit: cover;
+  font-weight: 400;
+  font-size: 1em;
+  line-height: 1.6em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: 2px solid #aaa;
+  padding: 30px 40px 30px;
 }

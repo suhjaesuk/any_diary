@@ -3,10 +3,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: #f6f6f6;
-}
-
-.logo {
-  margin-left: 30px;
+  padding: 10px 40px 0;
 }
 
 .header_rightBtn {
@@ -15,5 +12,9 @@
   border-radius: 5px;
   color: black;
   height: 30px;
-  margin-right: 30px;
+}
+
+.logo {
+  width: 25vw;
+  object-fit: cover;
 }
