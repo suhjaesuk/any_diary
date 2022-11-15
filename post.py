@@ -6,15 +6,16 @@ db = client.anyDiary
 app = Flask(__name__)
 
 
-@app.route('/')
+""" @app.route('/')
 def home():
-    return render_template('index.html')
-@app.route('/postDiary.html')
-def post_Diary():
+    return render_template('index.html') """
+    
+@app.route('/showDiary')
+def show_diary():
     return render_template('postDiary.html')
 
-@app.route('/postDiary.html', methods=['POST'])
-def postDiary():
+@app.route('/postDiary', methods=['POST'])
+def post_diary():
     title_receive = request.form['title_give']
     content_receive = request.form['content_give']
     # username_receive = request.form['username_give']
