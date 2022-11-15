@@ -10,8 +10,8 @@ app = Flask(__name__)
 def home():
     return render_template('index.html') """
     
-@app.route('/showDiary')
-def show_diary():
+@app.route('/writeDiary')
+def write_diary():
     return render_template('postDiary.html')
 
 @app.route('/postDiary', methods=['POST'])
