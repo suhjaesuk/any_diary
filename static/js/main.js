@@ -15,7 +15,7 @@ function show_diary() {
         let title = rows[i]['title']
         let content = rows[i]['content']
         // let username = 
-        let date = rows[i]['date'].substring(0, 17)
+        let date = rows[i]['date']
         let emoticon = rows[i]['emoticon']
         let temp_html = `
         <div class="item" onclick="location.href ='/contentId=${contentId}'" >

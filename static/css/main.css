@@ -1,3 +1,5 @@
+/* 그리드 스타일 */
+
 .gridContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -6,6 +8,9 @@
   padding: 40px;
   background-color: var(--gray-light);
 }
+
+
+/* 카드 스타일 */
 
 .item {
   font-weight: 400;
@@ -21,6 +26,9 @@
   cursor: pointer;
 }
 
+
+/* 메인 카드 부분 */
+
 .title {
   font-size: 1.8em;
   font-weight: 700;
@@ -29,6 +37,13 @@
 .content {
   font-size: 1.2em;
   font-weight: 400;
+
+  /* 높이에 맞춰 글자 수 자르기 */
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  max-height: 8em;
+  overflow: hidden;
 }
 
 .username,
@@ -36,10 +51,21 @@
   line-height: 10px;
   font-size: 1em;
   font-weight: 300;
+  color: var(--gray-dark);
 }
 
 .emoticon {
   font-size: 2em;
   margin-left: auto;
   margin-top: auto;
+}
+
+
+/* 푸터 */
+
+footer {
+  padding: 20px;
+  text-align: center;
+  font-weight: 700;
+  background-color: var(--gray-light);
 }

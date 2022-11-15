@@ -1,3 +1,4 @@
+/* 메뉴 양쪽정렬용 래퍼 */
 .wrapper {
   display: flex;
   justify-content: space-between;
@@ -6,15 +7,17 @@
   padding: 10px 40px 0;
 }
 
+/* 로고 */
+.logo {
+  height: 18vh;
+  object-fit: cover;
+}
+
+/* 로그인 버튼 외 */
 .header_rightBtn {
   background-color: transparent;
   border: 1px solid #aaa;
   border-radius: 5px;
   color: black;
   height: 30px;
-}
-
-.logo {
-  width: 25vw;
-  object-fit: cover;
 }
