@@ -1,18 +1,9 @@
 /* Common */
-body{
+body {
   background-color: #f3f3f3;
-  /*font-family: 'KoPub Dotum';*/
-  /*font-weight: 300;*/
   font-size: 16px;
   line-height: 1.2;
   color: #AAA;
-}
-.logo {
-  width: auto; 
-  height: auto;
-  max-width: 200px;
-  margin-top:10px;
-  margin-left: 100px;
 }
 
 .mylogin_box {
@@ -25,22 +16,21 @@ body{
   padding: 100px 50px 100px 50px;
 }
 
-.login_text{
-
-}
+/* 
+.login_text {} */
 
 .join_link {
   display: flex;
   justify-content: flex-end;
-  padding:0px;
+  padding: 0px;
 }
 
-.login_btn > button {
+.login_btn>button {
   display: flex;
   justify-content: center;
   text-align: center;
   width: 100%;
   margin-top: 10px;
   background-color: #fff;
-  
+
 }

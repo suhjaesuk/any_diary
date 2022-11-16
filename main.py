@@ -26,7 +26,6 @@ def date_forming(content_info):
     return content_info
 @bp.route('/')
 def home():
-
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])

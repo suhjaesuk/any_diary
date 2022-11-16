@@ -11,7 +11,9 @@ db = client.anyDiary
 
 SECRET_KEY = 'SPARTAAAAA!!!'
 
-
+import jwt
+import datetime
+import hashlib
 
 bp = Blueprint('content', __name__, url_prefix='/')
 
@@ -32,16 +34,14 @@ def date_forming(content_info):
 
 @bp.route('/readContent', methods=["GET"])
 def read():
-
     #게시글 정보 가져오기
-    contentId = int(request.args.get('contentId'))
-    #contentId = request['contentId']
-    #contentId = 1234
+    contentId = int(request.args.get('id'))
     content_info = db.testContent.find_one({'contentId': contentId})
     content_info = date_forming(content_info)
     #게시글 좋아요 정보 가져오기
     like_in_db = list(db.testLike.find({}, {'_id': False}))
     like_info = {}
+    
     #해당 유저가 해당 글에 좋아요 클릭했는지 판별
     # like_info['clicked'] = False
     # for like in like_in_db:
@@ -50,7 +50,13 @@ def read():
     #         like_info['clicked'] = True
     #
     # like_info['count'] = len(like_in_db) #전체 좋아요 수
-    return render_template('readContent.html', content = content_info)
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.testUser.find_one({"userId": payload['userId']})
+        return render_template('readContent.html', username=user_info["username"], content = content_info)
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return render_template('readContent.html', content = content_info)
 
 
 
@@ -94,27 +100,20 @@ def deleteContent_post():
     print(request.form['contentId'])
     contentId = request.form['contentId']
     db.testLike.delete_one({'contentId':contentId})
-    return render_template('/')
+    return render_template('/index.html')
 
 @bp.route('/modiContent', methods=["POST"])
 def modiContent_post():
     # 게시글 정보 가져오기
-    print('modiContent')
     contentId = int(request.form['contentId'])
-    print('contentId', contentId)
     content_info = db.testContent.find_one({'contentId': contentId})
-    print(content_info)
     temp_date = content_info['date']
-    print(temp_date)
-    #date = temp_date.strftime("%Y-%m-%d")  # 날짜 파싱
-    #content_info['date'] = date
 
     return render_template('modiDiary.html', content = content_info)
 
 @bp.route('/modiSave', methods=["POST"])
 def modiContent_save():
-    print('modi save')
-    print(request.form)
+
     contentId = int(request.form['contentId'])
     #db.testContent.update(({'contentId': contentId},{'$set': doc}))
     db.testContent.update_one(
@@ -124,4 +123,6 @@ def modiContent_save():
            'content' : request.form['content'],
            'emoticon' : request.form['emoticon']
               }})
-    return render_template('/')
+    content_info = db.testContent.find_one({'contentId': contentId})
+    content_info = date_forming(content_info)
+    return render_template('/readContent.html', content=content_info)
