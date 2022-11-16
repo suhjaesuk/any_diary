@@ -1,7 +1,7 @@
 <script>
   function logout() {
-    document.cookie = 'Authorization' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    location.href = 'user/logout';
+    document.cookie = 'mytoken' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    location.href = '/';
   }
 </script>
 
@@ -12,11 +12,13 @@
     </a>
     <div>
       {% if username %}
-      <button class="header_rightBtn" onclick="logout()">로그아웃</button>
-      <button class="header_rightBtn" onclick="location.href='/mypage'">나의 일기</button>
+      <h2>어서 와, <p id="username">{{ username }}</p>
+      </h2>
+      <button class="header_rightBtn" onclick="alert('로그아웃 되었습니다.'); logout();">로그아웃</button>
+      <button class="header_rightBtn" onclick="location.href='/writeDiary'">일기 쓰기</button>
       {% endif %}
       {% if not username %}
-      <button class="header_rightBtn" onclick="location.href='/user/login'">로그인</button>
+      <button class="header_rightBtn" onclick="location.href='/login'">로그인</button>
       {% endif %}
     </div>
   </div>

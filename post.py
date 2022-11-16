@@ -6,23 +6,31 @@ db = client.anyDiary
 app = Flask(__name__)
 
 
-@app.route('/')
+""" @app.route('/')
 def home():
-    return render_template('index.html')
-@app.route('/postDiary.html')
-def post_Diary():
+    return render_template('index.html') """
+    
+@app.route('/writeDiary')
+def write_diary():
     return render_template('postDiary.html')
 
-@app.route('/postDiary.html', methods=['POST'])
-def postDiary():
+@app.route('/postDiary', methods=['POST'])
+def post_diary():
     title_receive = request.form['title_give']
     content_receive = request.form['content_give']
-    # username_receive = request.form['username_give']
     date_receive = request.form['date_give']
     emoticon_receive = request.form['emoticon_give']
+    username_receive = request.form['username_give']
 
     countId = list(db.testContent.find({},{'_id':False}))
     num = len(countId) + 1
+
+    # users = list(db.testUser.find({}, {'_id': False}))
+    #
+    # for user in users:
+    #     user_name = user['username']
+
+
 
     doc = {
         'title' : title_receive,
@@ -30,13 +38,11 @@ def postDiary():
         # 'username' : username_receive,
         'date' : date_receive,
         'num' : num,
-        'emoticon' : emoticon_receive
-
-
+        'emoticon' : emoticon_receive,
+        'username' : username_receive
     }
     db.testContent.insert_one(doc)
     return jsonify({'msg' : '일기가 저장되었습니다.'})
-
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

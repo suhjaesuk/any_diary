@@ -1,5 +1,3 @@
-// 간단한 회원가입 함수입니다.
-// 아이디, 비밀번호, 닉네임을 받아 DB에 저장합니다.
 function registerform_check() {
     //검사 변수
     var RegExp = /^[a-zA-Z0-9]{4,12}$/; //
