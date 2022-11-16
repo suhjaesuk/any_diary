@@ -88,9 +88,9 @@ def modiContent_post():
     print('contentId', contentId)
     content_info = db.testContent.find_one({'contentId': contentId})
     print(content_info)
-    temp_date = content_info['date']
-    date = temp_date.strftime("%Y-%m-%d")  # 날짜 파싱
-    content_info['date'] = date
+    #temp_date = content_info['date']
+    #date = temp_date.strftime("%Y-%m-%d")  # 날짜 파싱
+    #content_info['date'] = date
 
     return render_template('modiDiary.html', content = content_info)
 
