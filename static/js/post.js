@@ -7,6 +7,7 @@ $.ajax({
         console.log(response['username']);
          console.log(response['userId']);
          $('#userId').val(response['userId'])
+        $('#username').val(response['username'])
     }
 });
 
@@ -16,7 +17,8 @@ function postDiary() {
     let content = $('#content').val()
     let emoticon = $('input[name="chk_info"]:checked').val()
     let userId = $('#userId').val()
-    let username = document.getElementById('username').innerText
+    let username = $('#username').val()
+    // let username = document.getElementById('username').innerText
     let date = new Date();
 
     if (check_content.value == "") {
