@@ -37,7 +37,8 @@
     <div class="form-group">
         <input type="hidden" id="contentId" value="{{content.contentId}}">
         <input type="hidden" id="username" value="{{content.username}}">
-        <input type="hidden" id="userId" value="{{content.userId}}">
+        <input type="hidden" id="writerId" value="{{content.userId}}">
+        <input type="hidden" id="userId" value="">
         <h1>{{content.title}}</h1>
         <br/>
         <span>
@@ -52,13 +53,9 @@
         <br/><br/>
         <div>
             <span class="likeClick">
-                {% if like.clicked is sameas true%}
-                ❤
-                {% else %}
-                🤍
-                {% endif %}
+
             </span>
-            <span id = "likeCount">{{like.count}}</span>
+            <span id = "likeCount"></span>
         </div>
         <hr/>
         <div class="buttons">

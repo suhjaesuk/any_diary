@@ -179,33 +179,38 @@ def read():
     like_in_db = list(db.testLike.find({}, {'_id': False}))
     like_info = {}
     #해당 유저가 해당 글에 좋아요 클릭했는지 판별
-    like_info['clicked'] = False
-    for like in like_in_db:
-        if like['contentId'] == request['contentId'] and like['userId'] == request['userId']:
-        #if like['contentId'] == '1234' and like['userId'] == 'test':
-            like_info['clicked'] = True
+    # like_info['clicked'] = False
+    # for like in like_in_db:
+    #     if like['contentId'] == request.args.get('contentId') and like['userId'] == request.form['userId']:
+    #     #if like['contentId'] == '1234' and like['userId'] == 'test':
+    #         like_info['clicked'] = True
+    #
+    # like_info['count'] = len(like_in_db) #전체 좋아요 수
+    return render_template('readContent.html', content = content_info)
 
-    like_info['count'] = len(like_in_db) #전체 좋아요 수
-    return render_template('readContent.html', content = content_info, like = like_info)
 
 
-
-@app.route('/searchLike', methods=["GET"])
+@app.route('/searchLike', methods=["POST"])
 def searchLike_post():
     like_in_db = list(db.testLike.find({}, {'_id': False}))
     like_info = {}
     # 해당 유저가 해당 글에 좋아요 클릭했는지 판별
     like_info['clicked'] = False
+    print('들어옴')
+    print(request.form)
+    count = 0
     for like in like_in_db:
-        if like['contentId'] == request['contentId'] and like['userId'] == request['userId']:
-        #if like['contentId'] == '1234' and like['userId'] == 'test':
-            like_info['clicked'] = True
-    like_info['count'] = len(like_in_db)  # 전체 좋아요 수
+        if like['contentId'] == request.form['contentId']:
+            count += 1
+            if like['userId'] == request.form['userId']:
+                like_info['clicked'] = True
+    like_info['count'] = count  # 전체 좋아요 수
     return jsonify({'click': like_info['clicked'], 'count':like_info['count']})
 
 @app.route('/addLike', methods=["POST"])
 def addLike_post():
     print(request.form['contentId'])
+    print(request.form['userId'])
     contentId = request.form['contentId']
     userId = request.form['userId']
     doc = {'userId': userId, 'contentId' : contentId}
@@ -255,7 +260,7 @@ def modiContent_save():
            'content' : request.form['content'],
            'emoticon' : request.form['emoticon']
               }})
-    return render_template('/readContent', contentId = contentId)
+    return render_template('/')
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
