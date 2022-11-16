@@ -1,3 +1,18 @@
+ $.ajax({
+        type: 'GET',
+        url: 'api/username',
+        data: {},
+        async : false,
+        success: function (response) {
+
+            //현재 로그인 된 아이디와 글쓴이의 아이디가 같다면 버튼 보이게 함
+            if(response['userId'] == $('#userId').val()){
+                $('.buttons').show();
+            }else{
+                $('.buttons').hide();
+            }
+        }
+    });
 
 
 $('.likeClick').on('click',function () {

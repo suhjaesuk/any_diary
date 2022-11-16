@@ -36,11 +36,12 @@
 
     <div class="form-group">
         <input type="hidden" id="contentId" value="{{content.contentId}}">
-        <input type="hidden" id="userId" value="test">
+        <input type="hidden" id="username" value="{{content.username}}">
+        <input type="hidden" id="userId" value="{{content.userId}}">
         <h1>{{content.title}}</h1>
         <br/>
         <span>
-            <span id="contentUsername">content username</span>
+            <span id="contentUsername">{{content.username}}</span>
             <span>{{content.emoticon}}</span>
             <div id=contentDate>{{content.date}}</div>
         </span>
