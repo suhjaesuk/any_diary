@@ -92,7 +92,7 @@ def api_login():
 # 로그인된 유저만 call 할 수 있는 API입니다.
 # 유효한 토큰을 줘야 올바른 결과를 얻어갈 수 있습니다.
 
-@app.route('/usertoken', methods=['GET'])
+@app.route('/api/username', methods=['GET'])
 def api_valid():
     token_receive = request.cookies.get('mytoken')
 
@@ -108,20 +108,6 @@ def api_valid():
         return jsonify({'result': 'fail', 'msg': '로그인 시간이 만료되었습니다.'})
     except jwt.exceptions.DecodeError:
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
-
-@app.route('/api/checkid', methods=['POST'])
-def c_id():
-    chk_id = 0
-    id_receive = request.form['id_give']
-    users = list(db.testUser.find({}, {'_id': False}))
-
-    for user in users:
-        user_id = user['userId']
-        if user_id == id_receive:
-            chk_id = 1
-
-    return jsonify({'result': 'success', 'status': chk_id})
-
 
 
 if __name__ == '__main__':

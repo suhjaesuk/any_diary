@@ -11,8 +11,14 @@ html {
   scroll-behavior: smooth;
 }
 
-
-
+body {
+  line-height: 1.6;
+  background: white;
+  /*color: #696969;*/
+  margin: 0 auto;
+  padding: 0;
+  max-width: 900px;
+}
 
 /* Global Typography */
 
@@ -26,8 +32,6 @@ h2 {
 
 h3 {
   font-size: 1.5rem;
-  padding-left: 400px;
-  padding-top: 30px;
 }
 
 p {

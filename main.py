@@ -13,7 +13,10 @@ def home():
 @app.route('/list', methods=['GET'])
 def list_diary():
     list_diary = list(db.testContent.find({}, {'_id': False}))
-    return jsonify({'result':'success', 'list_diary': list_diary})
+    new_list = []
+    for i in list_diary:
+        new_list.append(date_forming(i))
+    return jsonify({'result':'success', 'list_diary': new_list})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

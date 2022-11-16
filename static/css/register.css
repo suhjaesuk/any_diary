@@ -42,14 +42,7 @@ body{
   margin-left: 10px;
   border-color:#000;
   background-color: #fff;
+  margin: 0;
   margin-top:3px;
   margin-left:10px;
-}
-
-.check_btn{
-  margin-left: 225px;
-  margin-top: 3px;
-  background-color:#fff;
-  border-radius: 5px;
-  border-color:#000;
 }
