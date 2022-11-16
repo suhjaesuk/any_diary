@@ -162,15 +162,8 @@ def date_forming(content_info):
 def read():
 
     #게시글 정보 가져오기
-    # contentId = request['contentId']
-    content_info = db.testContent.find_one({'contentId': 1234})
-
-    list_diary = list(db.testContent.find({}, {'_id': False}))
-    new_list = []
-    for i in list_diary:
-        new_list.append(date_forming(i))
-
-
+    contentId = request['contentId']
+    content_info = db.testContent.find_one({'contentId': contentId})
     content_info = date_forming(content_info)
     #게시글 좋아요 정보 가져오기
     like_in_db = list(db.testLike.find({}, {'_id': False}))
@@ -178,8 +171,8 @@ def read():
     #해당 유저가 해당 글에 좋아요 클릭했는지 판별
     like_info['clicked'] = False
     for like in like_in_db:
-        #if like['contentId'] == request['contentId'] and like['userId'] == request['userId']:
-        if like['contentId'] == '1234' and like['userId'] == 'test':
+        if like['contentId'] == request['contentId'] and like['userId'] == request['userId']:
+        #if like['contentId'] == '1234' and like['userId'] == 'test':
             like_info['clicked'] = True
 
     like_info['count'] = len(like_in_db) #전체 좋아요 수
@@ -194,8 +187,8 @@ def searchLike_post():
     # 해당 유저가 해당 글에 좋아요 클릭했는지 판별
     like_info['clicked'] = False
     for like in like_in_db:
-        # if like['contentId'] == request['contentId'] and like['userId'] == request['userId']:
-        if like['contentId'] == '1234' and like['userId'] == 'test':
+        if like['contentId'] == request['contentId'] and like['userId'] == request['userId']:
+        #if like['contentId'] == '1234' and like['userId'] == 'test':
             like_info['clicked'] = True
     like_info['count'] = len(like_in_db)  # 전체 좋아요 수
     return jsonify({'click': like_info['clicked'], 'count':like_info['count']})
