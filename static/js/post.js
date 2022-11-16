@@ -11,13 +11,26 @@
    });
 
 function postDiary() {
+
+check_contents()
+
     let title = $('#title').val()
     let content = $('#content').val()
     let emoticon = $('#emoticon').val()
     let username = document.getElementById('username').innerText
-
-
     let date = new Date();
+
+    // if(content == null || content==""){
+    //     alert('일기를 입력해주세요.');
+    //     document.forms[0].content.focus();
+    //     return false;
+    // }
+    //
+    // if(emoticon == "오늘의 기분" || content==""){
+    //     alert('이모티콘을 선택해주세요.');
+    //     document.forms[0].emoticon.focus();
+    //     return false;
+    // }
 
 
 
@@ -43,7 +56,18 @@ function postDiary() {
 
 
 
+function check_contents() {
 
+    let content = document.getElementById("content");
+
+    if(content.value == ""){
+        alert("내용을 입력해주세요.");
+
+        return false;
+
+    }
+
+}
 
 
 
