@@ -7,11 +7,22 @@ db = client.anyDiary
 
 app = Flask(__name__)
 
+import jwt
+import datetime
+import hashlib
+
+SECRET_KEY = 'SPARTAAAAA!!!'
 
 bp = Blueprint('post', __name__, url_prefix='/')
 @bp.route('/writeDiary')
 def write_diary():
-    return render_template('postDiary.html')
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.testUser.find_one({"userId": payload['userId']})
+        return render_template('postDiary.html', username=user_info["username"])
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return render_template('postDiary.html')
 
 @bp.route('/postDiary', methods=['POST'])
 def post_diary():
@@ -21,18 +32,16 @@ def post_diary():
     emoticon_receive = request.form['emoticon_give']
     username_receive = request.form['username_give']
 
-
     countId = list(db.testContent.find({},{'_id':False}))
-    num = len(countId) + 1
+    contentId = len(countId) + 1
 
     doc = {
         'title' : title_receive,
         'content' : content_receive,
         'date' : date_receive,
-        'num' : num,
+        'contentId' : contentId,
         'emoticon' : emoticon_receive,
         'username' : username_receive,
-        'emoticon' : emoticon_receive
     }
     db.testContent.insert_one(doc)
 

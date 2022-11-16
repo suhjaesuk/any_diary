@@ -11,6 +11,7 @@
   --pink-light: #ffe2e2;
 }
 
-a:visited {
+a {
   text-decoration: none;
+  color: black;
 }
