@@ -1,20 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% include 'form.html' %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Main Style Sheet -->
     <!-- CSS -->
-    <link href="{{ url_for('static', filename='post/post.css') }}" rel="stylesheet">
-
-    <!-- normalize -->
-    <link rel="stylesheet" href="../static/css/normalize.css">
-    <!-- header -->
-    <link rel="stylesheet" href="../static/css/header.css">
-    <!-- global css -->
-    <link rel="stylesheet" href="../static/css/global.css">
+    <link rel="stylesheet" href="../static/css/post.css">
     <!-- content -->
     <link rel="stylesheet" href="../static/css/readContent.css">
 
@@ -23,16 +14,16 @@
 
 
 <body>
-
-    <h3 class="title">일기 쓰기</h3>
+    {% include 'header.html' %}
 
     <!-- Journal Entry Section -->
     <section class="section journal-section">
         <div class="container">
             <div class="container-row container-row-journal">
                 <div class="container-item container-item-journal">
-                    <form id="entryForm" action="/modiSave" method="post">
-
+                    <form id="entryForm" action="">
+                        <h2 class="title">일기 쓰기</h2>
+                        <p class="title"> - - - - </p>
                         <label for="title" class="journal-label">제목</label>
                         <input type="text" name="title" id="title" class="entry-text-title"
                             placeholder="제목은 안적어도 괜찮아요. ✏️" value={{content.title}} />
@@ -40,15 +31,20 @@
                         <textarea name="content" id="content" class="entry-text-box"
                             placeholder="일기를 적어주세요. 💭">{{content.content}}</textarea>
                         <details>
-                            <summary class="journal-label">감정 이모티콘 🔻</summary>
+                            <summary class="journal-label">감정 이모티콘🔻</summary>
                             <div class="wrap">
-                                <select class="list" id="emoticon2" name="emoticon2">
-                                    <option selected value="😀">😀</option>
-                                    <option value="😄">😄</option>
-                                    <option value="😆">😆</option>
-                                    <option value="😅">😅</option>
-                                    <option value="🤣">🤣</option>
-                                </select>
+                                <div class="list" id="emoticon">
+                                    <input type="radio" name="chk_info" value="😀" checked="checked">😀
+                                    <input type="radio" name="chk_info" value="😄">😄
+                                    <input type="radio" name="chk_info" value="😆">😆
+                                    <input type="radio" name="chk_info" value="😅">😅
+                                    <input type="radio" name="chk_info" value="😑">😑
+                                    <input type="radio" name="chk_info" value="😷">😷
+                                    <input type="radio" name="chk_info" value="🥰">🥰
+                                    <input type="radio" name="chk_info" value="😭">😭
+                                    <input type="radio" name="chk_info" value="😡">😡
+                                </div>
+
                             </div>
                         </details>
                         <input type="hidden" name="contentId" value={{content.contentId}} />

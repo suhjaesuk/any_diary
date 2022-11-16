@@ -121,8 +121,13 @@ def modiContent_post():
     contentId = int(request.form['contentId'])
     content_info = db.testContent.find_one({'contentId': contentId})
     temp_date = content_info['date']
-
-    return render_template('modiDiary.html', content=content_info)
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.testUser.find_one({"userId": payload['userId']})
+        return render_template('modiDiary.html', username=user_info["username"], content=content_info)
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return render_template('modiDiary.html', content=content_info)
 
 
 @bp.route('/modiSave', methods=["POST"])

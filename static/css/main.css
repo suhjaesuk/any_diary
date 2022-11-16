@@ -2,7 +2,7 @@
 
 .gridContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   grid-auto-rows: minmax(360px, auto);
   gap: 2em;
   padding: 40px;
@@ -56,7 +56,7 @@ hr {
 
 .username,
 .date {
-  line-height: 10px;
+  line-height: 1rem;
   font-size: 1em;
   font-weight: 300;
   color: var(--gray-dark);
