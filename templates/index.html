@@ -41,7 +41,7 @@
                         let emoticon = rows[i]['emoticon']
                         let temp_html = `
                   {% if username %}
-                      <div class="item" onclick="location.href ='/contentId=${contentId}'">
+                  <div class="item" onclick="location.href ='/readContent?id=${contentId}'">
                       {% endif %}
                       {% if not username %}
                       <div class="item" onclick="alert('로그인 해주세요'); location.href ='/login';">
