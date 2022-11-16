@@ -2,59 +2,37 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Main Style Sheet -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- CSS -->
     <link href="{{ url_for('static', filename='post/post.css') }}" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="{{ url_for('static', filename='css/header.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/normalize.css">
+    <script type=text/javascript src="{{ url_for('static', filename='js/post.js') }}"></script>
+    <!-- global css -->
+    <link rel="stylesheet" href="./static/css/global.css">
+
 
 
     <title>일기 작성</title>
 </head>
 
-<script>
 
-    function postDiary() {
-        let title = $('#title').val()
-        let content = $('#content').val()
-        let emoticon = $('#emoticon').val()
-        let date = $('#date').val()
-
-        $.ajax({
-            type: 'POST',
-            url: '/postDiary',
-            data: {
-                title_give: title,
-                content_give: content,
-                // username_give:username,
-                date_give: date,
-                emoticon_give: emoticon
-            },
-            success: function (response) {
-                alert(response['msg'])
-
-            }
-        });
-    }
-</script>
 
 
 <body>
+{% include "header.html" %}
 
     <h3 class="title">일기 쓰기</h3>
-
     <!-- Journal Entry Section -->
     <section class="section journal-section">
         <div class="container">
             <div class="container-row container-row-journal">
                 <div class="container-item container-item-journal">
                     <form id="entryForm" action="">
-                        <form>
-                            <label for="title" class="journal-label">날짜</label>
-                            <label class="journal-label"><input id="date" class="entry-text-title" type="date"
-                                    value="2022-11-15"></label>
-                        </form>
                         <label for="title" class="journal-label">제목</label>
                         <input type="text" name="entry-title" id="title" class="entry-text-title"
                             placeholder="제목은 안적어도 괜찮아요. ✏️" />
