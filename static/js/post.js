@@ -5,8 +5,8 @@ $.ajax({
     async: false,
     success: function (response) {
         console.log(response['username']);
-
-
+         console.log(response['userId']);
+         $('#userId').val(response['userId'])
     }
 });
 
@@ -14,24 +14,13 @@ function postDiary() {
 
     check_contents()
 
+
     let title = $('#title').val()
     let content = $('#content').val()
-    let emoticon = $('#emoticon').val()
+    let emoticon = $('input[name="chk_info"]:checked').val()
+    let userId = $('#userId').val()
     let username = document.getElementById('username').innerText
     let date = new Date();
-
-    // if(content == null || content==""){
-    //     alert('일기를 입력해주세요.');
-    //     document.forms[0].content.focus();
-    //     return false;
-    // }
-    //
-    // if(emoticon == "오늘의 기분" || content==""){
-    //     alert('이모티콘을 선택해주세요.');
-    //     document.forms[0].emoticon.focus();
-    //     return false;
-    // }
-
 
 
     $.ajax({
@@ -41,6 +30,7 @@ function postDiary() {
             title_give: title,
             content_give: content,
             date_give: Date,
+            userId_give: userId,
             emoticon_give: emoticon,
             username_give: username
         },

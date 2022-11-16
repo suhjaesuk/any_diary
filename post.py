@@ -31,6 +31,7 @@ def post_diary():
     date_receive = request.form['date_give']
     emoticon_receive = request.form['emoticon_give']
     username_receive = request.form['username_give']
+    userId_receive = request.form['userId_give']
 
     countId = list(db.testContent.find({},{'_id':False}))
     contentId = len(countId) + 1
@@ -42,6 +43,7 @@ def post_diary():
         'contentId' : contentId,
         'emoticon' : emoticon_receive,
         'username' : username_receive,
+        'userId': userId_receive
     }
     db.testContent.insert_one(doc)
 
