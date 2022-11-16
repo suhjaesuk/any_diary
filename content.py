@@ -95,12 +95,19 @@ def delLike_post():
     db.testLike.delete_one({'userId': userId, 'contentId':contentId})
     return jsonify({'state':'unlike'})
 
-@bp.route('/deleteContent', methods=["POST"])
+@bp.route('/home', methods=["POST"])
 def deleteContent_post():
-    print(request.form['contentId'])
-    contentId = request.form['contentId']
-    db.testLike.delete_one({'contentId':contentId})
-    return render_template('/index.html')
+    print("dsa",request.form['contentId'])
+    contentId = int(request.form['contentId'])
+    db.testContent.delete_one({'contentId':contentId})
+
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.testUser.find_one({"userId": payload['userId']})
+        return render_template('index.html', username=user_info["username"])
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return render_template('index.html')
 
 @bp.route('/modiContent', methods=["POST"])
 def modiContent_post():
@@ -113,7 +120,7 @@ def modiContent_post():
 
 @bp.route('/modiSave', methods=["POST"])
 def modiContent_save():
-
+    print(request.form)
     contentId = int(request.form['contentId'])
     #db.testContent.update(({'contentId': contentId},{'$set': doc}))
     db.testContent.update_one(
@@ -121,7 +128,7 @@ def modiContent_save():
         {"$set":
              {'title': request.form['title'],
            'content' : request.form['content'],
-           'emoticon' : request.form['emoticon']
+           'emoticon' : request.form['emoticon2']
               }})
     content_info = db.testContent.find_one({'contentId': contentId})
     content_info = date_forming(content_info)

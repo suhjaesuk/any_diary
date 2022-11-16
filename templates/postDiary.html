@@ -2,7 +2,8 @@
 <html lang="en">
 
 <head>
-    {% include 'form.html' %}
+    <meta charset="UTF-8">
+<!--    {% include 'form.html' %}-->
     <link rel="stylesheet" href="../static/css/post.css">
     <title>일기 작성</title>
 </head>
@@ -23,20 +24,15 @@
                         <textarea name="daily-entry" id="content" class="entry-text-box" placeholder="일기를 적어주세요. 💭"
                             maxlength="240"></textarea>
                         <details>
-                            <summary class="journal-label">감정 이모티콘 🔻</summary>
+                            <input type="hidden" id="userId" value="">
+                            <summary class="journal-label">감정 이모티콘🔻</summary>
                             <div class="wrap">
                                 <div class="list" id="emoticon">
-                                    <!--                                    <option selected>오늘의 기분</option>-->
-                                    <!--                                    <option value="😀">😀</option>-->
-                                    <!--                                    <option value="😀">😄</option>-->
-                                    <!--                                    <option value="😀">😆</option>-->
-                                    <!--                                    <option value="😀">😅</option>-->
-                                    <!-- <option value="😀">🤣</option>-->
                                     <input type="radio" name="chk_info" value="😀" checked="checked">😀
-                                    <input type="radio" name="chk_info" value="😀">😄
-                                    <input type="radio" name="chk_info" value="😀">😆
-                                    <input type="radio" name="chk_info" value="😀">😅
-                                    <input type="radio" name="chk_info" value="😀">🤣
+                                    <input type="radio" name="chk_info" value="😄">😄
+                                    <input type="radio" name="chk_info" value="😆">😆
+                                    <input type="radio" name="chk_info" value="😅">😅
+                                    <input type="radio" name="chk_info" value="🤣">🤣
 
                                 </div>
 
@@ -49,6 +45,7 @@
         </div>
     </section>
     <script src="../static/js/post.js"></script>
+
 </body>
 
 </html>
