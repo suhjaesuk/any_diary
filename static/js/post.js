@@ -1,9 +1,25 @@
+    $.ajax({
+       type: 'GET',
+       url: '/usertoken',
+       data: {},
+       async : false,
+       success: function (response) {
+           console.log(response['username']);
+
+
+       }
+   });
+
 function postDiary() {
     let title = $('#title').val()
     let content = $('#content').val()
     let emoticon = $('#emoticon').val()
+    let username = document.getElementById('username').innerText
+
 
     let date = new Date();
+
+
 
     $.ajax({
         type: 'POST',
@@ -12,8 +28,11 @@ function postDiary() {
             title_give: title,
             content_give: content,
             date: Date,
-            emoticon_give: emoticon
+            emoticon_give: emoticon,
+            username_give : username
+
         },
+
         success: function (response) {
             alert(response['msg'])
             window.location.href = '/'
@@ -21,6 +40,8 @@ function postDiary() {
         }
     });
 }
+
+
 
 
 

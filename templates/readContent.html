@@ -37,7 +37,8 @@
     <div class="form-group">
         <input type="hidden" id="contentId" value="{{content.contentId}}">
         <input type="hidden" id="username" value="{{content.username}}">
-        <input type="hidden" id="userId" value="{{content.userId}}">
+        <input type="hidden" id="writerId" value="{{content.userId}}">
+        <input type="hidden" id="userId" value="">
         <h1>{{content.title}}</h1>
         <br/>
         <span>
@@ -52,21 +53,17 @@
         <br/><br/>
         <div>
             <span class="likeClick">
-                {% if like.clicked is sameas true%}
-                ❤
-                {% else %}
-                🤍
-                {% endif %}
+
             </span>
-            <span id = "likeCount">{{like.count}}</span>
+            <span id = "likeCount"></span>
         </div>
         <hr/>
         <div class="buttons">
             <form action="/modiContent" method="post" id="modiForm">
                 <input type="hidden" name="contentId" value="{{content.contentId}}"><br>
             </form>
-            <button id="contentModi" type="submit" form="modiForm">수정하기</button>
-            <button id="contentDel">삭제하기</button>
+            <button id="contentModi" type="submit" form="modiForm" class="btn btn-outline-dark float-right">수정하기</button>
+            <button id="contentDel" class="btn btn-outline-dark float-right">삭제하기</button>
         </div>
     </div>
 </div>

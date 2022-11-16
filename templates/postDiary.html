@@ -3,6 +3,7 @@
 
 <head>
 
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Main Style Sheet -->
@@ -26,6 +27,7 @@
 <body>
 {% include "header.html" %}
 
+<h2>어서 와, <p id="username">재석<p></h2>
     <h3 class="title">일기 쓰기</h3>
     <!-- Journal Entry Section -->
     <section class="section journal-section">
@@ -38,7 +40,7 @@
                             placeholder="제목은 안적어도 괜찮아요. ✏️" />
                         <label for="content" class="journal-label">오늘의 일기</label>
                         <textarea name="daily-entry" id="content" class="entry-text-box"
-                            placeholder="일기를 적어주세요. 💭"></textarea>
+                            placeholder="일기를 적어주세요. 💭" maxlength="240" ></textarea>
                         <details>
                             <summary class="journal-label">감정 이모티콘 🔻</summary>
                             <div class="wrap">

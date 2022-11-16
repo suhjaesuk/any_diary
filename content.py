@@ -15,6 +15,14 @@ import jwt
 import datetime
 import hashlib
 
+def check_login():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.testUser.find_one({"userId": payload['userId']})
+        return user_info["username"]
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return null
 
 @app.route('/')
 def home():
@@ -162,47 +170,47 @@ def date_forming(content_info):
 def read():
 
     #게시글 정보 가져오기
-    # contentId = request['contentId']
-    content_info = db.testContent.find_one({'contentId': 1234})
-
-    list_diary = list(db.testContent.find({}, {'_id': False}))
-    new_list = []
-    for i in list_diary:
-        new_list.append(date_forming(i))
-
-
+    contentId = int(request.args.get('contentId'))
+    #contentId = request['contentId']
+    #contentId = 1234
+    content_info = db.testContent.find_one({'contentId': contentId})
     content_info = date_forming(content_info)
     #게시글 좋아요 정보 가져오기
     like_in_db = list(db.testLike.find({}, {'_id': False}))
     like_info = {}
     #해당 유저가 해당 글에 좋아요 클릭했는지 판별
-    like_info['clicked'] = False
-    for like in like_in_db:
-        #if like['contentId'] == request['contentId'] and like['userId'] == request['userId']:
-        if like['contentId'] == '1234' and like['userId'] == 'test':
-            like_info['clicked'] = True
+    # like_info['clicked'] = False
+    # for like in like_in_db:
+    #     if like['contentId'] == request.args.get('contentId') and like['userId'] == request.form['userId']:
+    #     #if like['contentId'] == '1234' and like['userId'] == 'test':
+    #         like_info['clicked'] = True
+    #
+    # like_info['count'] = len(like_in_db) #전체 좋아요 수
+    return render_template('readContent.html', content = content_info)
 
-    like_info['count'] = len(like_in_db) #전체 좋아요 수
-    return render_template('readContent.html', content = content_info, like = like_info)
 
 
-
-@app.route('/searchLike', methods=["GET"])
+@app.route('/searchLike', methods=["POST"])
 def searchLike_post():
     like_in_db = list(db.testLike.find({}, {'_id': False}))
     like_info = {}
     # 해당 유저가 해당 글에 좋아요 클릭했는지 판별
     like_info['clicked'] = False
+    print('들어옴')
+    print(request.form)
+    count = 0
     for like in like_in_db:
-        # if like['contentId'] == request['contentId'] and like['userId'] == request['userId']:
-        if like['contentId'] == '1234' and like['userId'] == 'test':
-            like_info['clicked'] = True
-    like_info['count'] = len(like_in_db)  # 전체 좋아요 수
+        if like['contentId'] == request.form['contentId']:
+            count += 1
+            if like['userId'] == request.form['userId']:
+                like_info['clicked'] = True
+    like_info['count'] = count  # 전체 좋아요 수
     return jsonify({'click': like_info['clicked'], 'count':like_info['count']})
 
 @app.route('/addLike', methods=["POST"])
 def addLike_post():
     print(request.form['contentId'])
+    print(request.form['userId'])
     contentId = request.form['contentId']
     userId = request.form['userId']
     doc = {'userId': userId, 'contentId' : contentId}
@@ -252,7 +260,7 @@ def modiContent_save():
            'content' : request.form['content'],
            'emoticon' : request.form['emoticon']
               }})
-    return render_template('/readContent', contentId = contentId)
+    return render_template('/')
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
