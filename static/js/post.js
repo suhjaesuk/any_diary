@@ -40,7 +40,7 @@ function postDiary() {
         data: {
             title_give: title,
             content_give: content,
-            date: Date,
+            date_give: Date,
             emoticon_give: emoticon,
             username_give: username
         },
