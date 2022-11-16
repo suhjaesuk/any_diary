@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request, redirect
+from flask import Flask, render_template, jsonify, request, Blueprint
 
 app = Flask(__name__)
 
@@ -11,152 +11,16 @@ db = client.anyDiary
 
 SECRET_KEY = 'SPARTAAAAA!!!'
 
-import jwt
-import datetime
-import hashlib
-
-def check_login():
-    token_receive = request.cookies.get('mytoken')
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.testUser.find_one({"userId": payload['userId']})
-        return user_info["username"]
-    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
-        return null
-
-@app.route('/')
-def home():
-    token_receive = request.cookies.get('mytoken')
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.testUser.find_one({"userId": payload['userId']})
-        return render_template('index.html', username=user_info["username"])
-    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
-        return render_template('index.html')
-
-@app.route('/login')
-def login():
-    msg = request.args.get("msg")
-    return render_template('login.html', msg=msg)
-
-@app.route('/register')
-def register():
-    return render_template('register.html')
-
-@app.route('/logout', methods=['GET', 'POST'])
-def logout():
-    return redirect('/')
-
-@app.route('/list', methods=['GET'])
-def show_diary():
-    show_diary = list(db.testContent.find({}, {'_id': False}))
-    return jsonify({'result':'success', 'show_diary': show_diary})
 
 
-@app.route('/writeDiary')
-def write_diary():
-    return render_template('postDiary.html')
-
-@app.route('/postDiary', methods=['POST'])
-def post_diary():
-    title_receive = request.form['title_give']
-    content_receive = request.form['content_give']
-    # username_receive = request.form['username_give']
-    date_receive = request.form['date_give']
-    emoticon_receive = request.form['emoticon_give']
-
-    countId = list(db.testContent.find({},{'_id':False}))
-    num = len(countId) + 1
-
-    doc = {
-        'title' : title_receive,
-        'content' : content_receive,
-        # 'username' : username_receive,
-        'date' : date_receive,
-        'num' : num,
-        'emoticon' : emoticon_receive
-
-
-    }
-    db.testContent.insert_one(doc)
-    return jsonify({'msg' : '일기가 저장되었습니다.'})
-#####  로그인을 위한 API  ######
-
-# [회원가입 API]
-# id, pw, username을 받아서, mongoDB에 저장합니다.
-# 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
-@app.route('/api/register', methods=['POST'])
-def api_register():
-    id_receive = request.form['id_give']
-    pw_receive = request.form['pw_give']
-    nickname_receive = request.form['nickname_give']
-
-    pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
-
-    db.testUser.insert_one({'userId': id_receive, 'password': pw_hash, 'username': nickname_receive})
-
-    return jsonify({'result': 'success'})
-
-
-# [로그인 API]
-# id, pw를 받아서 맞춰보고, 토큰을 만들어 발급합니다.
-@app.route('/api/login', methods=['POST'])
-def api_login():
-    id_receive = request.form['id_give']
-    pw_receive = request.form['pw_give']
-
-    # 회원가입 때와 같은 방법으로 pw를 암호화합니다.
-    pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
-
-    # id, 암호화된pw을 가지고 해당 유저를 찾습니다.
-    result = db.testUser.find_one({'userId': id_receive, 'password': pw_hash})
-
-    # 찾으면 JWT 토큰을 만들어 발급합니다.
-    if result is not None:
-        # JWT 토큰에는, payload와 시크릿키가 필요합니다.
-        # 시크릿키가 있어야 토큰을 디코딩(=풀기) 해서 payload 값을 볼 수 있습니다.
-        # 아래에선 id와 exp를 담았습니다. 즉, JWT 토큰을 풀면 유저ID 값을 알 수 있습니다.
-        # exp에는 만료시간을 넣어줍니다. 만료시간이 지나면, 시크릿키로 토큰을 풀 때 만료되었다고 에러가 납니다.
-        payload = {
-            'userId': id_receive,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
-        }
-        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
-
-        # token을 줍니다.
-        return jsonify({'result': 'success', 'token': token})
-    # 찾지 못하면
-    else:
-        return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
-
-
-# [유저 정보 확인 API]
-# 로그인된 유저만 call 할 수 있는 API입니다.
-# 유효한 토큰을 줘야 올바른 결과를 얻어갈 수 있습니다.
-
-@app.route('/api/username', methods=['GET'])
-def api_valid():
-    token_receive = request.cookies.get('mytoken')
-
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        print(payload)
-
-        # payload 안에 id가 들어있습니다. id로 유저정보를 찾습니다.
-        userinfo = db.testUser.find_one({'userId': payload['userId']}, {'_id': 0})
-        return jsonify({'result': 'success',
-                        'username': userinfo['username'],
-                        'userId':userinfo['userId']})
-
-    except jwt.ExpiredSignatureError:
-        return jsonify({'result': 'fail', 'msg': '로그인 시간이 만료되었습니다.'})
-    except jwt.exceptions.DecodeError:
-        return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
+bp = Blueprint('content', __name__, url_prefix='/')
 
 #db에서 가져온 content정보에서
 #date를 "년 월 일 시:분:초" 형식으로 바꿔줌
 #parameter : content
 #파라미터는 글에 대한 정보 전체를 넣어 줘야 함
+
+
 def date_forming(content_info):
     if type(content_info.get('date', '')) is str:
         temp_arr = content_info.get('date', "").split(' ')
@@ -166,7 +30,7 @@ def date_forming(content_info):
             temp_arr = []
     return content_info
 
-@app.route('/readContent', methods=["GET"])
+@bp.route('/readContent', methods=["GET"])
 def read():
 
     #게시글 정보 가져오기
@@ -190,7 +54,7 @@ def read():
 
 
 
-@app.route('/searchLike', methods=["POST"])
+@bp.route('/searchLike', methods=["POST"])
 def searchLike_post():
     like_in_db = list(db.testLike.find({}, {'_id': False}))
     like_info = {}
@@ -207,7 +71,7 @@ def searchLike_post():
     like_info['count'] = count  # 전체 좋아요 수
     return jsonify({'click': like_info['clicked'], 'count':like_info['count']})
 
-@app.route('/addLike', methods=["POST"])
+@bp.route('/addLike', methods=["POST"])
 def addLike_post():
     print(request.form['contentId'])
     print(request.form['userId'])
@@ -217,7 +81,7 @@ def addLike_post():
     db.testLike.insert_one(doc)
     return jsonify({'state': 'like'})
 
-@app.route('/delLike', methods=["POST"])
+@bp.route('/delLike', methods=["POST"])
 def delLike_post():
     print(request.form['contentId'], request.form['userId'])
     contentId = request.form['contentId']
@@ -225,14 +89,14 @@ def delLike_post():
     db.testLike.delete_one({'userId': userId, 'contentId':contentId})
     return jsonify({'state':'unlike'})
 
-@app.route('/deleteContent', methods=["POST"])
+@bp.route('/deleteContent', methods=["POST"])
 def deleteContent_post():
     print(request.form['contentId'])
     contentId = request.form['contentId']
     db.testLike.delete_one({'contentId':contentId})
     return render_template('/')
 
-@app.route('/modiContent', methods=["POST"])
+@bp.route('/modiContent', methods=["POST"])
 def modiContent_post():
     # 게시글 정보 가져오기
     print('modiContent')
@@ -247,7 +111,7 @@ def modiContent_post():
 
     return render_template('modiDiary.html', content = content_info)
 
-@app.route('/modiSave', methods=["POST"])
+@bp.route('/modiSave', methods=["POST"])
 def modiContent_save():
     print('modi save')
     print(request.form)
@@ -261,6 +125,3 @@ def modiContent_save():
            'emoticon' : request.form['emoticon']
               }})
     return render_template('/')
-
-if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
