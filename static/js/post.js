@@ -14,7 +14,7 @@ function postDiary() {
     let title = $('#title').val()
     let content = $('#content').val()
     let emoticon = $('#emoticon').val()
-    let username = console.log(response['username']);
+    let username = document.getElementById('username').innerText
 
 
     let date = new Date();

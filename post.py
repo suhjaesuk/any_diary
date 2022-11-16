@@ -9,7 +9,7 @@ app = Flask(__name__)
 """ @app.route('/')
 def home():
     return render_template('index.html') """
-
+    
 @app.route('/writeDiary')
 def write_diary():
     return render_template('postDiary.html')
@@ -18,13 +18,18 @@ def write_diary():
 def post_diary():
     title_receive = request.form['title_give']
     content_receive = request.form['content_give']
-    date_receive = request.form['date']
+    # username_receive = request.form['username_give']
+    date_receive = request.form['date_give']
     emoticon_receive = request.form['emoticon_give']
+<<<<<<< HEAD
     username_receive = request.form['username_give']
+=======
+>>>>>>> e01f550a8505ff9bf064f92b1d82e3aaaa2cefd7
 
     countId = list(db.testContent.find({},{'_id':False}))
     num = len(countId) + 1
 
+<<<<<<< HEAD
     # users = list(db.testUser.find({}, {'_id': False}))
     #
     # for user in users:
@@ -34,16 +39,23 @@ def post_diary():
 
 
 
+=======
+>>>>>>> e01f550a8505ff9bf064f92b1d82e3aaaa2cefd7
     doc = {
         'title' : title_receive,
         'content' : content_receive,
+        # 'username' : username_receive,
         'date' : date_receive,
         'num' : num,
+<<<<<<< HEAD
         'emoticon' : emoticon_receive,
         'username' : username_receive
+=======
+        'emoticon' : emoticon_receive
+
+
+>>>>>>> e01f550a8505ff9bf064f92b1d82e3aaaa2cefd7
     }
-
-
     db.testContent.insert_one(doc)
     return jsonify({'msg' : '일기가 저장되었습니다.'})
 
