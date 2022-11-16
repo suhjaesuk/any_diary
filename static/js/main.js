@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 $(document).ready(function () {
   $('.gridContainer').empty()
   show_diary()
@@ -34,4 +32,3 @@ function show_diary() {
     }
   })
 }
->>>>>>> a2c9d827f440d7bd00d76732e9af20c6393085b4
