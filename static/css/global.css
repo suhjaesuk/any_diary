@@ -1,0 +1,16 @@
+@import "//cdn.jsdelivr.net/npm/font-kopub@1.0/kopubbatang.min.css";
+
+* {
+  font-family: 'KoPub Batang';
+}
+
+:root {
+  --gray-dark: #aaaaaa;
+  --gray-light: #fafafa;
+  --pink-dark: #ffc7c7;
+  --pink-light: #ffe2e2;
+}
+
+a:visited {
+  text-decoration: none;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Main Style Sheet -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- CSS -->
+    <link href="{{ url_for('static', filename='post/post.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/header.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/normalize.css">
+    <script type=text/javascript src="{{ url_for('static', filename='js/post.js') }}"></script>
+    <!-- global css -->
+    <link rel="stylesheet" href="./static/css/global.css">
+
+
+
+    <title>일기 작성</title>
+</head>
+
+
+
+
+<body>
+{% include "header.html" %}
+
+<h2>어서 와, <p id="username">재석<p></h2>
+    <h3 class="title">일기 쓰기</h3>
+    <!-- Journal Entry Section -->
+    <section class="section journal-section">
+        <div class="container">
+            <div class="container-row container-row-journal">
+                <div class="container-item container-item-journal">
+                    <form id="entryForm" action="">
+                        <label for="title" class="journal-label">제목</label>
+                        <input type="text" name="entry-title" id="title" class="entry-text-title"
+                            placeholder="제목은 안적어도 괜찮아요. ✏️" />
+                        <label for="content" class="journal-label">오늘의 일기</label>
+                        <textarea name="daily-entry" id="content" class="entry-text-box"
+                            placeholder="일기를 적어주세요. 💭" maxlength="240" ></textarea>
+                        <details>
+                            <summary class="journal-label">감정 이모티콘 🔻</summary>
+                            <div class="wrap">
+                                <div class="list" id="emoticon">
+<!--                                    <option selected>오늘의 기분</option>-->
+<!--                                    <option value="😀">😀</option>-->
+<!--                                    <option value="😀">😄</option>-->
+<!--                                    <option value="😀">😆</option>-->
+<!--                                    <option value="😀">😅</option>-->
+                                    <!-- <option value="😀">🤣</option>-->
+                                    <input type="radio" name="chk_info" value="😀" checked="checked">😀
+                                    <input type="radio" name="chk_info" value="😀">😄
+                                    <input type="radio" name="chk_info" value="😀">😆
+                                    <input type="radio" name="chk_info" value="😀">😅
+                                    <input type="radio" name="chk_info" value="😀">🤣
+
+                                </div>
+
+                            </div>
+                        </details>
+                        <button class="btn-main entry-submit-btn" onclick="postDiary()" type="button">작성하기</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

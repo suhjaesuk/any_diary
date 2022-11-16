@@ -1,0 +1,25 @@
+.likeClick{
+    cursor:pointer;
+}
+
+#contentUsername{
+    font-weight: bold;
+}
+
+.form-group {
+  background-color: #f6f6f6;
+  width: 95%;
+  max-width: 400px;
+  margin: 5% auto auto auto;
+  box-shadow: 0px 0px 2px 0px #AAA;
+  padding: 50px 20px 50px 20px;
+}
+
+.buttons > button {
+  display: inline;
+  justify-content: right;
+  text-align: center;
+  width: 30%;
+  margin-top: 10px;
+  background-color: #fff;
+}

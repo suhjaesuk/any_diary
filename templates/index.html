@@ -1,10 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>어떤일기</title>
 
+    <!-- Jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <!-- normalize -->
+    <link rel="stylesheet" href="../static/css/normalize.css">
+    <!-- header -->
+    <link rel="stylesheet" href="../static/css/header.css">
+    <!-- global css -->
+    <link rel="stylesheet" href="./static/css/global.css">
+    <!-- main -->
+    <link rel="stylesheet" href="../static/css/main.css">
+
+    <!-- 로그인 유무에 따라 카드 링크 다르게 설정-->
+    <!-- !!!반드시 html 내 위치 유지!!! -->
+    <script>
+        function list_diary() {
+            $.ajax({
+                type: 'GET',
+                url: '/list',
+                data: {},
+                success: function (response) {
+                    let rows = response['list_diary']
+                    for (let i = 0; i < rows.length; i++) {
+                        let contentId = rows[i]['contentId']
+                        let title = rows[i]['title']
+                        let content = rows[i]['content']
+                        let username = rows[i]['username']
+                        let date = rows[i]['date']
+                        let emoticon = rows[i]['emoticon']
+                        let temp_html = `
+                  {% if username %}
+                      <div class="item" onclick="location.href ='/contentId=${contentId}'">
+                      {% endif %}
+                      {% if not username %}
+                      <div class="item" onclick="alert('로그인 해주세요'); location.href ='/login';">
+                      {% endif %}
+                      <h3 class="title">${title}</h3>
+                      <hr><br>
+                      <p class="content">${content}</p><br>
+                      <p class="username">${username}</p>
+                      <p class="date">${date}</p>
+                      <p class="emoticon">${emoticon}</p>
+                  </div>
+          `
+                        $('.gridContainer').append(temp_html)
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+
+<body>
+    {% include "header.html" %}
+    <div class="gridContainer">
+    </div>
+
+    <footer>ⓒ2022 어떤일기</footer>
+    <script src="../static/js/main.js"></script>
 </body>
+
 </html>
