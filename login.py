@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request,Blueprint
 
 app = Flask(__name__)
 
@@ -15,7 +15,10 @@ import jwt
 import datetime
 import hashlib
 
-@app.route('/')
+
+bp = Blueprint('main', __name__, url_prefix='/')
+
+@bp.route('/')
 def home():
 
     token_receive = request.cookies.get('mytoken')
@@ -26,13 +29,15 @@ def home():
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template('index.html')
 
-@app.route('/login')
+
+@bp.route('/login')
 def login():
     msg = request.args.get("msg")
     return render_template('login.html', msg=msg)
 
 
-@app.route('/register')
+
+@bp.route('/register')
 def register():
     return render_template('register.html')
 
@@ -43,7 +48,8 @@ def register():
 # [회원가입 API]
 # id, pw, username을 받아서, mongoDB에 저장합니다.
 # 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
-@app.route('/api/register', methods=['POST'])
+
+@bp.route('/api/register', methods=['POST'])
 def api_register():
     id_receive = request.form['id_give']
     pw_receive = request.form['pw_give']
@@ -58,7 +64,8 @@ def api_register():
 
 # [로그인 API]
 # id, pw를 받아서 맞춰보고, 토큰을 만들어 발급합니다.
-@app.route('/api/login', methods=['POST'])
+
+@bp.route('/api/login', methods=['POST'])
 def api_login():
     id_receive = request.form['id_give']
     pw_receive = request.form['pw_give']
@@ -92,7 +99,8 @@ def api_login():
 # 로그인된 유저만 call 할 수 있는 API입니다.
 # 유효한 토큰을 줘야 올바른 결과를 얻어갈 수 있습니다.
 
-@app.route('/api/username', methods=['GET'])
+
+@bp.route('/usertoken', methods=['GET'])
 def api_valid():
     token_receive = request.cookies.get('mytoken')
 
@@ -102,12 +110,26 @@ def api_valid():
 
         # payload 안에 id가 들어있습니다. id로 유저정보를 찾습니다.
         userinfo = db.testUser.find_one({'userId': payload['userId']}, {'_id': 0})
-        return jsonify({'result': 'success', 'username': userinfo['username']})
+        return jsonify({'result': 'success', 'username':userinfo['username'], 'userId': userinfo['userId']})
 
     except jwt.ExpiredSignatureError:
         return jsonify({'result': 'fail', 'msg': '로그인 시간이 만료되었습니다.'})
     except jwt.exceptions.DecodeError:
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
+
+
+@bp.route('/api/checkid', methods=['POST'])
+def c_id():
+    chk_id = 0
+    id_receive = request.form['id_give']
+    users = list(db.testUser.find({}, {'_id': False}))
+
+    for user in users:
+        user_id = user['userId']
+        if user_id == id_receive:
+            chk_id = 1
+
+    return jsonify({'result': 'success', 'status': chk_id})
 
 
 if __name__ == '__main__':
