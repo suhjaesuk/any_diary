@@ -1,18 +1,18 @@
-    $.ajax({
-       type: 'GET',
-       url: '/usertoken',
-       data: {},
-       async : false,
-       success: function (response) {
-           console.log(response['username']);
+$.ajax({
+    type: 'GET',
+    url: '/usertoken',
+    data: {},
+    async: false,
+    success: function (response) {
+        console.log(response['username']);
 
 
-       }
-   });
+    }
+});
 
 function postDiary() {
 
-check_contents()
+    check_contents()
 
     let title = $('#title').val()
     let content = $('#content').val()
@@ -42,8 +42,7 @@ check_contents()
             content_give: content,
             date: Date,
             emoticon_give: emoticon,
-            username_give : username
-
+            username_give: username
         },
 
         success: function (response) {
@@ -60,7 +59,7 @@ function check_contents() {
 
     let content = document.getElementById("content");
 
-    if(content.value == ""){
+    if (content.value == "") {
         alert("내용을 입력해주세요.");
 
         return false;

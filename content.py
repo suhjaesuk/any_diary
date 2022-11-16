@@ -196,8 +196,6 @@ def searchLike_post():
     like_info = {}
     # 해당 유저가 해당 글에 좋아요 클릭했는지 판별
     like_info['clicked'] = False
-    print('들어옴')
-    print(request.form)
     count = 0
     for like in like_in_db:
         if like['contentId'] == request.form['contentId']:
@@ -227,10 +225,10 @@ def delLike_post():
 
 @app.route('/deleteContent', methods=["POST"])
 def deleteContent_post():
-    print(request.form['contentId'])
-    contentId = request.form['contentId']
-    db.testLike.delete_one({'contentId':contentId})
-    return render_template('/')
+
+    contentId = int(request.form['contentId'])
+    db.testContent.delete_one({'contentId':contentId})
+    return render_template('/index.html')
 
 @app.route('/modiContent', methods=["POST"])
 def modiContent_post():
@@ -260,7 +258,10 @@ def modiContent_save():
            'content' : request.form['content'],
            'emoticon' : request.form['emoticon']
               }})
-    return render_template('/')
+
+    content_info = db.testContent.find_one({'contentId': contentId})
+    content_info = date_forming(content_info)
+    return render_template('/readContent.html', content=content_info)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
