@@ -15,6 +15,14 @@ import jwt
 import datetime
 import hashlib
 
+def check_login():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.testUser.find_one({"userId": payload['userId']})
+        return user_info["username"]
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return null
 
 @app.route('/')
 def home():
@@ -162,7 +170,9 @@ def date_forming(content_info):
 def read():
 
     #게시글 정보 가져오기
-    contentId = request['contentId']
+    contentId = int(request.args.get('contentId'))
+    #contentId = request['contentId']
+    #contentId = 1234
     content_info = db.testContent.find_one({'contentId': contentId})
     content_info = date_forming(content_info)
     #게시글 좋아요 정보 가져오기
