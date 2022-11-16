@@ -12,7 +12,7 @@
     </a>
     <div>
       {% if username %}
-      <h2>어서 와, {{ username }}
+      <h2>어서 와, <p id="username">{{ username }}</p>
       </h2>
       <button class="btn btn-outline-dark" onclick="alert('로그아웃 되었습니다.'); logout();">로그아웃</button>
       <button class="btn btn-outline-dark" onclick="location.href='/writeDiary'">일기 쓰기</button>
