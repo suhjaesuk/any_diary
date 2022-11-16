@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $.ajax({
         type: 'GET',
-        url: 'api/username',
+        url: '/usertoken',
         data: {},
         async: false,
         success: function (response) {
@@ -103,7 +103,7 @@ $('#modiComplete').click(function () {
         }
     });
 })*/
-
+/*
 $('#contentDel').click(function () {
     let contentId = $('#contentId').val();
 
@@ -119,3 +119,4 @@ $('#contentDel').click(function () {
 
 })
 
+*/

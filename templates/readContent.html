@@ -62,8 +62,11 @@
             <form action="/modiContent" method="post" id="modiForm">
                 <input type="hidden" name="contentId" value="{{content.contentId}}"><br>
             </form>
+            <form action="/deleteContent" method="post" id="delForm">
+                <input type="hidden" name="contentId" value="{{content.contentId}}"><br>
+            </form>
             <button id="contentModi" type="submit" form="modiForm" class="btn btn-outline-dark float-right">수정하기</button>
-            <button id="contentDel" class="btn btn-outline-dark float-right">삭제하기</button>
+            <button id="contentDel" type="submit" form="delForm" class="btn btn-outline-dark float-right">삭제하기</button>
         </div>
     </div>
 </div>
