@@ -19,26 +19,24 @@
     <link rel="stylesheet" href="./static/css/global.css">
     <!-- main -->
     <link rel="stylesheet" href="../static/css/main.css">
+
     <script>
           function logout() {
               document.cookie = 'mytoken'+ '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
               location.href='/';
           }
     </script>
+
 </head>
 
 <body>
     {% include "header.html" %}
     <div class="gridContainer">
-        <div class="item">내용</div>
-        <div class="item">내용</div>
-        <div class="item">내용</div>
-        <div class="item">내용</div>
-        <div class="item">내용</div>
-        <div class="item">내용</div>
+        <!-- 여기 본문 카드 들어옴 -->
     </div>
 
-    <script src="../static/main.js"></script>
+    <footer>ⓒ2022 어떤일기</footer>
+    <script src="../static/js/main.js"></script>
 </body>
 
 </html>

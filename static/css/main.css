@@ -1,16 +1,18 @@
+/* 그리드 스타일 */
+
 .gridContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   grid-auto-rows: minmax(360px, auto);
   gap: 2em;
-  padding-top: 50px;
+  padding: 40px;
+  background-color: var(--gray-light);
 }
 
+
+/* 카드 스타일 */
+
 .item {
-<<<<<<< HEAD
-  /* background-color: #f6f6f6; */
-  border: 1px dashed #aaa;
-=======
   font-weight: 400;
   font-size: 1em;
   line-height: 1.6em;
@@ -70,12 +72,7 @@ hr {
 
 footer {
   padding: 20px;
->>>>>>> a2c9d827f440d7bd00d76732e9af20c6393085b4
   text-align: center;
-}
-
-.logo {
-  width: 200px;
-  height: 120px;
-  object-fit: cover;
+  font-weight: 700;
+  background-color: var(--gray-light);
 }
