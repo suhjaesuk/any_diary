@@ -4,30 +4,27 @@ app = Flask(__name__)
 
 from pymongo import MongoClient
 import certifi
-
+import jwt
+import datetime
+import hashlib
 ca=certifi.where()
 client = MongoClient("mongodb+srv://test:qwer1234@cluster0.hju0g3t.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
 db = client.anyDiary
 
 SECRET_KEY = 'SPARTAAAAA!!!'
 
-import jwt
-import datetime
-import hashlib
+bp = Blueprint('login', __name__, url_prefix='/')
 
-
-bp = Blueprint('main', __name__, url_prefix='/')
-
-@bp.route('/')
-def home():
-
-    token_receive = request.cookies.get('mytoken')
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.testUser.find_one({"userId": payload['userId']})
-        return render_template('index.html', username=user_info["username"])
-    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
-        return render_template('index.html')
+# @bp.route('/')
+# def home():
+#
+#     token_receive = request.cookies.get('mytoken')
+#     try:
+#         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+#         user_info = db.testUser.find_one({"userId": payload['userId']})
+#         return render_template('index.html', username=user_info["username"])
+#     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+#         return render_template('index.html')
 
 
 @bp.route('/login')
@@ -132,5 +129,5 @@ def c_id():
     return jsonify({'result': 'success', 'status': chk_id})
 
 
-if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+# if __name__ == '__main__':
+#     app.run('0.0.0.0', port=5000, debug=True)
