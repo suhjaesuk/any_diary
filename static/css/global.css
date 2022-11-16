@@ -2,14 +2,8 @@
 
 * {
   font-family: 'KoPub Batang';
-  box-sizing: border-box;
-}
-
-:root {
-  --gray-dark: #aaaaaa;
-  --gray-light: #fafafa;
-  --pink-dark: #ffc7c7;
-  --pink-light: #ffe2e2;
+  font-weight: 300;
+  text-decoration: none;
 }
 
 a:visited {

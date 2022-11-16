@@ -22,7 +22,7 @@ def home():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.testUser.find_one({"userId": payload['userId']})
-        return render_template('index.html', nickname=user_info["username"])
+        return render_template('index.html', username=user_info["username"])
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template('index.html')
 
