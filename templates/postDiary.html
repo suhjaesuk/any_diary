@@ -3,20 +3,21 @@
 
 <head>
     <meta charset="UTF-8">
-<!--    {% include 'form.html' %}-->
+    {% include 'form.html' %}
     <link rel="stylesheet" href="../static/css/post.css">
     <title>일기 작성</title>
 </head>
 
 <body>
     {% include "header_clean.html" %}
-    <h3 class="title">일기 쓰기</h3>
     <!-- Journal Entry Section -->
     <section class="section journal-section">
         <div class="container">
             <div class="container-row container-row-journal">
                 <div class="container-item container-item-journal">
                     <form id="entryForm" action="">
+                        <h2 class="title">일기 쓰기</h2>
+                        <p class="title"> - - - - </p>
                         <label for="title" class="journal-label">제목</label>
                         <input type="text" name="entry-title" id="title" class="entry-text-title"
                             placeholder="제목은 안적어도 괜찮아요. ✏️" />
@@ -38,9 +39,6 @@
                                     <input type="radio" name="chk_info" value="🥰">🥰
                                     <input type="radio" name="chk_info" value="😭">😭
                                     <input type="radio" name="chk_info" value="😡">😡
-
-
-
                                 </div>
 
                             </div>

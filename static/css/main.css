@@ -22,6 +22,7 @@
   align-items: center;
   background-color: white;
   border: 2px solid var(--gray-dark);
+  border-radius: 5px;
   padding: 30px 40px 30px;
   cursor: pointer;
 }

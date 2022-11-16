@@ -23,7 +23,7 @@ $(document).ready(function () {
     $.ajax({
         type: 'POST',
         url: '/searchLike',
-        data: {userId: userId, contentId: contentId},
+        data: { userId: userId, contentId: contentId },
         success: function (response) {
 
             if (response['click'] == false) {
@@ -55,7 +55,7 @@ $('.likeClick').on('click', function () {
     $.ajax({
         type: 'POST',
         url: url,
-        data: {userId: userId, contentId: contentId},
+        data: { userId: userId, contentId: contentId },
         async: false,
         success: function (response) {
         }
@@ -65,7 +65,7 @@ $('.likeClick').on('click', function () {
     $.ajax({
         type: 'POST',
         url: '/searchLike',
-        data: {userId: userId, contentId: contentId},
+        data: { userId: userId, contentId: contentId },
         success: function (response) {
             console.log(response)
             if (response['click'] == false) {
