@@ -31,8 +31,9 @@
 
         <!--회원가입 form-->
         <div class="form-floating mb-2">
-            <input type="text" name="userId" class="form-control" id="userid" placeholder="userId" style="height: 50px;">
+            <input type="text" name="userId" class="form-control" id="userid" placeholder="userId" style="height: 50px;" onchange ="change_id()">
             <label> 아이디 </label>
+            <button type="button" class="btn btn-outline-dark btn-sm" style="margin-left:228px; background-color: #fff; margin-top:5px;" onclick="id_check()">중복확인</button>
         </div>
         <div class="form-floating mb-2">
             <input type="text" class="form-control" id="usernick" placeholder="My Nickname" style="height: 50px;">
