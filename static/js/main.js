@@ -2,16 +2,16 @@
 =======
 $(document).ready(function () {
   $('.gridContainer').empty()
-  show_diary()
+  list_diary()
 })
 
-function show_diary() {
+function list_diary() {
   $.ajax({
     type: 'GET',
     url: '/list',
     data: {},
     success: function (response) {
-      let rows = response['show_diary']
+      let rows = response['list_diary']
       for (let i = 0; i < rows.length; i++) {
         let contentId = rows[i]['contentId']
         let title = rows[i]['title']
@@ -20,7 +20,13 @@ function show_diary() {
         let date = rows[i]['date']
         let emoticon = rows[i]['emoticon']
         let temp_html = `
+        <div>
+        {% if username %}
         <div class="item" onclick="location.href ='/contentId=${contentId}'" >
+        {% endif %}
+        {% if not username %}
+        <div class="item" onclick="location.href ='/login'" >
+        </div>
         <h3 class="title">${title}</h3>
         <hr><br>
         <p class="content">${content}</p><br>
