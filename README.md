@@ -28,7 +28,7 @@ Jinja2
 JWT
 
 ## 📺 실행화면
-![image](https://user-images.githubusercontent.com/84319636/202403923-be8bd732-b9a9-4f83-b93a-26f7f1e5cb57.png)
 
+ https://hanghae99.slack.com/files/U0451V09D1A/F04B91MM3RB/______99_10____a1________________.mp4
 
 
