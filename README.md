@@ -2,10 +2,10 @@
 오늘은 어떤 일이 있었나요?  여러분의 감정을 공유해주세요.
 
 ## 👤 팀원 소개
-서재석 : https://velog.io/@suhjaesuk
-권령빈 : https://velog.io/@dev_ryank
-진효제 : https://hyo-je.tistory.com/
-서영철 : https://nervous-square-de2.notion.site/9680d84543964c06a12a501178f8207e
+서재석
+권령빈
+진효제
+서영철 
 
 ## ⏳ 팀 프로젝트 기간
 2022.11.14 ~ 2022.11.17
