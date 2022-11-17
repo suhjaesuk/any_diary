@@ -64,12 +64,13 @@ def read():
 
 @bp.route('/searchLike', methods=["POST"])
 def searchLike_post():
+    print('searchLike 함수')
+    print(request.form)
     like_in_db = list(db.testLike.find({}, {'_id': False}))
     like_info = {}
     # 해당 유저가 해당 글에 좋아요 클릭했는지 판별
     like_info['clicked'] = False
-    print('들어옴')
-    print(request.form)
+
     count = 0
     for like in like_in_db:
         if like['contentId'] == request.form['contentId']:
@@ -82,8 +83,7 @@ def searchLike_post():
 
 @bp.route('/addLike', methods=["POST"])
 def addLike_post():
-    print(request.form['contentId'])
-    print(request.form['userId'])
+
     contentId = request.form['contentId']
     userId = request.form['userId']
     doc = {'userId': userId, 'contentId': contentId}
@@ -93,7 +93,7 @@ def addLike_post():
 
 @bp.route('/delLike', methods=["POST"])
 def delLike_post():
-    print(request.form['contentId'], request.form['userId'])
+
     contentId = request.form['contentId']
     userId = request.form['userId']
     db.testLike.delete_one({'userId': userId, 'contentId': contentId})
@@ -102,7 +102,7 @@ def delLike_post():
 
 @bp.route('/home', methods=["POST"])
 def deleteContent_post():
-    print("dsa", request.form['contentId'])
+
     contentId = int(request.form['contentId'])
     db.testContent.delete_one({'contentId': contentId})
 
@@ -118,6 +118,7 @@ def deleteContent_post():
 @bp.route('/modiContent', methods=["POST"])
 def modiContent_post():
     # 게시글 정보 가져오기
+
     contentId = int(request.form['contentId'])
     content_info = db.testContent.find_one({'contentId': contentId})
     temp_date = content_info['date']
@@ -125,14 +126,14 @@ def modiContent_post():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.testUser.find_one({"userId": payload['userId']})
-        return render_template('modiDiary.html', username=user_info["username"], content=content_info)
+        return render_template('modiDiary.html', username=user_info["username"],userId=user_info["username"], content=content_info)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template('modiDiary.html', content=content_info)
 
 
 @bp.route('/modiSave', methods=["POST"])
 def modiContent_save():
-    print(request.form)
+
     contentId = int(request.form['contentId'])
     #db.testContent.update(({'contentId': contentId},{'$set': doc}))
     db.testContent.update_one(
@@ -140,7 +141,7 @@ def modiContent_save():
         {"$set":
          {'title': request.form['title'],
           'content': request.form['content'],
-          'emoticon': request.form['emoticon2']
+          'emoticon': request.form['emoticon']
           }})
     content_info = db.testContent.find_one({'contentId': contentId})
     content_info = date_forming(content_info)
