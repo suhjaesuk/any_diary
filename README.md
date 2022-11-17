@@ -27,8 +27,28 @@ Flask
 Jinja2
 JWT
 
-## 📺 실행화면
+## 📷 캡쳐
 
- https://hanghae99.slack.com/files/U0451V09D1A/F04B91MM3RB/______99_10____a1________________.mp4
+로그인<br/>
+![KakaoTalk_20221117_180712300_04](https://user-images.githubusercontent.com/84319636/202405014-3fc0f568-bbad-499a-a3cb-451233a327d9.jpg)
+<br/> <br/> 
 
+회원가입<br/>
+![KakaoTalk_20221117_180712300_05](https://user-images.githubusercontent.com/84319636/202405157-1ce0128d-cfaf-4944-aba0-a07118164bb2.jpg)
+<br/> <br/> 
 
+메인<br/>
+![KakaoTalk_20221117_180712300_03](https://user-images.githubusercontent.com/84319636/202405279-416f3046-2b90-43fb-88d5-c9b38e0bd971.jpg)
+<br/> <br/> 
+
+일기쓰기<br/>
+![KakaoTalk_20221117_180712300_01](https://user-images.githubusercontent.com/84319636/202405396-856c112e-85f8-4e16-8a4a-7560388085d6.jpg)
+<br/> <br/>
+
+내가 쓴 일기 상세페이지<br/>
+![KakaoTalk_20221117_180712300](https://user-images.githubusercontent.com/84319636/202405541-3ef085d8-4bda-4875-a13c-e1596598fe84.jpg)
+<br/> <br/>
+
+다른 사람이 쓴 일기 상세페이지 + 좋아요<br/>
+![KakaoTalk_20221117_180712300_02](https://user-images.githubusercontent.com/84319636/202405697-55202f6c-7b23-4aee-97fa-faf2e8449c08.jpg)
+<br/> <br/>
