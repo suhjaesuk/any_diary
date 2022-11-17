@@ -29,7 +29,7 @@ def home():
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.testUser.find_one({"userId": payload['userId']})
+        user_info = db.users.find_one({"userId": payload['userId']})
         return render_template('index.html', username=user_info["username"])
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template('index.html')
@@ -37,7 +37,7 @@ def home():
 
 @bp.route('/list', methods=['GET'])
 def list_diary():
-    list_diary = list(db.testContent.find({}, {'_id': False}))
+    list_diary = list(db.contents.find({}, {'_id': False}))
     new_list = []
     for i in list_diary:
         new_list.append(date_forming(i))
