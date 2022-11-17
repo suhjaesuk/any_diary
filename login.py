@@ -21,7 +21,7 @@ bp = Blueprint('login', __name__, url_prefix='/')
 #     token_receive = request.cookies.get('mytoken')
 #     try:
 #         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-#         user_info = db.testUser.find_one({"userId": payload['userId']})
+#         user_info = db.users.find_one({"userId": payload['userId']})
 #         return render_template('index.html', username=user_info["username"])
 #     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
 #         return render_template('index.html')
@@ -52,7 +52,7 @@ def api_register():
     pw_receive = request.form['pw_give']
     username_receive = request.form['username_give']
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
-    db.testUser.insert_one({'userId': id_receive, 'password': pw_hash, 'username': username_receive})
+    db.users.insert_one({'userId': id_receive, 'password': pw_hash, 'username': username_receive})
 
     return jsonify({'result': 'success'})
 
@@ -69,7 +69,7 @@ def api_login():
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
     # id, 암호화된pw을 가지고 해당 유저를 찾습니다.
-    result = db.testUser.find_one({'userId': id_receive, 'password': pw_hash})
+    result = db.users.find_one({'userId': id_receive, 'password': pw_hash})
 
     # 찾으면 JWT 토큰을 만들어 발급합니다.
     if result is not None:
@@ -82,7 +82,7 @@ def api_login():
             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
-
+        # .decode('utf-8')
         # token을 줍니다.
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
@@ -104,7 +104,7 @@ def api_valid():
         print(payload)
 
         # payload 안에 id가 들어있습니다. id로 유저정보를 찾습니다.
-        userinfo = db.testUser.find_one({'userId': payload['userId']}, {'_id': 0})
+        userinfo = db.users.find_one({'userId': payload['userId']}, {'_id': 0})
         return jsonify({'result': 'success', 'username':userinfo['username'], 'userId': userinfo['userId']})
 
     except jwt.ExpiredSignatureError:
@@ -118,7 +118,7 @@ def api_valid():
 def c_id():
     chk_id = 0
     id_receive = request.form['id_give']
-    users = list(db.testUser.find({}, {'_id': False}))
+    users = list(db.users.find({}, {'_id': False}))
 
     for user in users:
         user_id = user['userId']
@@ -126,19 +126,3 @@ def c_id():
             chk_id = 1
 
     return jsonify({'result': 'success', 'status': chk_id})
-
-@bp.route('/api/checkname', methods=['POST'])
-def c_name():
-    chk_name = 0
-    name_receive = request.form['name_give']
-    users = list(db.testUser.find({}, {'_id': False}))
-    for user in users:
-        username = user['username']
-        if username == name_receive:
-            chk_name = 1
-
-    return jsonify({'result': 'success', 'status': chk_name})
-
-
-# if __name__ == '__main__':
-#     app.run('0.0.0.0', port=5000, debug=True)

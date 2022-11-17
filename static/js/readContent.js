@@ -16,6 +16,7 @@ $(document).ready(function () {
         }
     });
 
+
     let contentId = $('#contentId').val();
     let userId = $('#userId').val();
 
@@ -78,3 +79,9 @@ $('.likeClick').on('click', function () {
     });
 
 })
+
+    $('#contentDel').click(function(){
+    if(confirm("삭제 하시겠습니까?")) {
+        $('#delForm').submit()
+    }
+});
