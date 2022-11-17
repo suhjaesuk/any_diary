@@ -28,7 +28,7 @@ Jinja2
 JWT
 
 ## 📺 실행화면
-### 로그인 및 회원가입
+![image](https://user-images.githubusercontent.com/84319636/202403923-be8bd732-b9a9-4f83-b93a-26f7f1e5cb57.png)
 
 
 
