@@ -39,24 +39,13 @@ def date_forming(content_info):
 def read():
     # 게시글 정보 가져오기
     contentId = int(request.args.get('id'))
-    content_info = db.testContent.find_one({'contentId': contentId})
+    content_info = db.content.find_one({'contentId': contentId})
     content_info = date_forming(content_info)
-    # 게시글 좋아요 정보 가져오기
-    like_in_db = list(db.testLike.find({}, {'_id': False}))
-    like_info = {}
 
-    # 해당 유저가 해당 글에 좋아요 클릭했는지 판별
-    # like_info['clicked'] = False
-    # for like in like_in_db:
-    #     if like['contentId'] == request.args.get('contentId') and like['userId'] == request.form['userId']:
-    #     #if like['contentId'] == '1234' and like['userId'] == 'test':
-    #         like_info['clicked'] = True
-    #
-    # like_info['count'] = len(like_in_db) #전체 좋아요 수
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.testUser.find_one({"userId": payload['userId']})
+        user_info = db.user.find_one({"userId": payload['userId']})
         return render_template('readContent.html', username=user_info["username"], content=content_info)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template('readContent.html', content=content_info)
@@ -66,7 +55,7 @@ def read():
 def searchLike_post():
     print('searchLike 함수')
     print(request.form)
-    like_in_db = list(db.testLike.find({}, {'_id': False}))
+    like_in_db = list(db.like.find({}, {'_id': False}))
     like_info = {}
     # 해당 유저가 해당 글에 좋아요 클릭했는지 판별
     like_info['clicked'] = False
@@ -87,7 +76,7 @@ def addLike_post():
     contentId = request.form['contentId']
     userId = request.form['userId']
     doc = {'userId': userId, 'contentId': contentId}
-    db.testLike.insert_one(doc)
+    db.like.insert_one(doc)
     return jsonify({'state': 'like'})
 
 
@@ -96,7 +85,7 @@ def delLike_post():
 
     contentId = request.form['contentId']
     userId = request.form['userId']
-    db.testLike.delete_one({'userId': userId, 'contentId': contentId})
+    db.like.delete_one({'userId': userId, 'contentId': contentId})
     return jsonify({'state': 'unlike'})
 
 
@@ -104,12 +93,12 @@ def delLike_post():
 def deleteContent_post():
 
     contentId = int(request.form['contentId'])
-    db.testContent.delete_one({'contentId': contentId})
+    db.content.delete_one({'contentId': contentId})
 
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.testUser.find_one({"userId": payload['userId']})
+        user_info = db.user.find_one({"userId": payload['userId']})
         return render_template('index.html', username=user_info["username"])
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template('index.html')
@@ -120,12 +109,12 @@ def modiContent_post():
     # 게시글 정보 가져오기
 
     contentId = int(request.form['contentId'])
-    content_info = db.testContent.find_one({'contentId': contentId})
+    content_info = db.content.find_one({'contentId': contentId})
     temp_date = content_info['date']
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.testUser.find_one({"userId": payload['userId']})
+        user_info = db.user.find_one({"userId": payload['userId']})
         return render_template('modiDiary.html', username=user_info["username"],userId=user_info["username"], content=content_info)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template('modiDiary.html', content=content_info)
@@ -136,13 +125,13 @@ def modiContent_save():
 
     contentId = int(request.form['contentId'])
     #db.testContent.update(({'contentId': contentId},{'$set': doc}))
-    db.testContent.update_one(
+    db.content.update_one(
         {'contentId': contentId},
         {"$set":
          {'title': request.form['title'],
           'content': request.form['content'],
           'emoticon': request.form['emoticon']
           }})
-    content_info = db.testContent.find_one({'contentId': contentId})
+    content_info = db.content.find_one({'contentId': contentId})
     content_info = date_forming(content_info)
     return render_template('/readContent.html', content=content_info)
