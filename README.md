@@ -12,9 +12,9 @@
 
 ## 🔑 핵심 기능
 JWT를 이용한 로그인/회원가입 기능 &nbsp;&nbsp;  
-메인페이지 다른 사람 일기 공유 &nbsp;&nbsp; </br?
-일기등록 수정 삭제 &nbsp;&nbsp;  </br?
-상세페이지 좋아요 &nbsp;&nbsp;  </br?
+메인페이지 다른 사람 일기 공유 &nbsp;&nbsp; <br/> 
+일기등록 수정 삭제 &nbsp;&nbsp;  <br/> 
+상세페이지 좋아요 &nbsp;&nbsp;  <br/> 
 
 
 ## ⚙️ 기술 스택
