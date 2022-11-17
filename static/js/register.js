@@ -1,12 +1,9 @@
 let check_id = 0
-let check_name = 0
 
 function change_id() {
     check_id=0
 }
-function change_name() {
-    check_name=0
-}
+
 
 function id_check() {
     var RegExp = /^[a-zA-Z0-9]{4,12}$/;
@@ -47,51 +44,24 @@ function id_check() {
     }
 }
 
-function name_check() {
+function registerform_check() {
+    var RegExp = /^[a-zA-Z0-9]{4,12}$/;
     var n_RegExp = /^[a-zA-Z0-9가-힣]{2,8}$/;
+    var id = document.getElementById("userid");
     var name = document.getElementById("username");
-
+    var password = document.getElementById("userpw");
+    var password2 = document.getElementById("userpw2");
 
     if (name.value == "") {
         alert("닉네임을 입력하세요.");
         name.focus();
         return false;
     }
-
     if (!n_RegExp.test(name.value)) {
         name.focus();
         alert("닉네임은 2~8자의 한글, 영문 대소문자, 숫자로만 입력해 주세요.");
         return false;
-    } else {
-        $.ajax({
-            type: "POST",
-            url: "/api/checkname",
-            data: {
-                name_give: $('#username').val(),
-            },
-            success: function (response) {
-                if (response['status'] === 0) {
-                    check_name = 1
-                    alert('사용 가능한 닉네임 입니다.')
-                } else {
-                    alert('이미 존재하는 닉네임 입니다.')
-                    name.focus();
-                    document.getElementById('username').value = null
-                }
-            }
-        })
-
     }
-}
-
-
-
-function registerform_check() {
-    var RegExp = /^[a-zA-Z0-9]{4,12}$/;
-    var id = document.getElementById("userid");
-    var password = document.getElementById("userpw");
-    var password2 = document.getElementById("userpw2");
-
     if (password.value == "") {
         alert("비밀번호를 입력하세요.");
         password.focus();
@@ -133,3 +103,42 @@ function register() {
         }
     })
 }
+
+
+//회원가입 중복검사 할 시 필요한 코드 deprecated 됨
+// function name_check() {
+//     var n_RegExp = /^[a-zA-Z0-9가-힣]{2,8}$/;
+//     var name = document.getElementById("username");
+//
+//
+//     if (name.value == "") {
+//         alert("닉네임을 입력하세요.");
+//         name.focus();
+//         return false;
+//     }
+//
+//     if (!n_RegExp.test(name.value)) {
+//         name.focus();
+//         alert("닉네임은 2~8자의 한글, 영문 대소문자, 숫자로만 입력해 주세요.");
+//         return false;
+//     } else {
+//         $.ajax({
+//             type: "POST",
+//             url: "/api/checkname",
+//             data: {
+//                 name_give: $('#username').val(),
+//             },
+//             success: function (response) {
+//                 if (response['status'] === 0) {
+//                     check_name = 1
+//                     alert('사용 가능한 닉네임 입니다.')
+//                 } else {
+//                     alert('이미 존재하는 닉네임 입니다.')
+//                     name.focus();
+//                     document.getElementById('username').value = null
+//                 }
+//             }
+//         })
+//
+//     }
+// }

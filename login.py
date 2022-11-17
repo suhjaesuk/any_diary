@@ -127,17 +127,18 @@ def c_id():
 
     return jsonify({'result': 'success', 'status': chk_id})
 
-@bp.route('/api/checkname', methods=['POST'])
-def c_name():
-    chk_name = 0
-    name_receive = request.form['name_give']
-    users = list(db.testUser.find({}, {'_id': False}))
-    for user in users:
-        username = user['username']
-        if username == name_receive:
-            chk_name = 1
-
-    return jsonify({'result': 'success', 'status': chk_name})
+# 회원가입 닉네임 중복체크 시 필요한 코드 deprecated 됨
+# @bp.route('/api/checkname', methods=['POST'])
+# def c_name():
+#     chk_name = 0
+#     name_receive = request.form['name_give']
+#     users = list(db.testUser.find({}, {'_id': False}))
+#     for user in users:
+#         username = user['username']
+#         if username == name_receive:
+#             chk_name = 1
+# 
+#     return jsonify({'result': 'success', 'status': chk_name})
 
 
 # if __name__ == '__main__':
