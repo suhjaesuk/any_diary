@@ -13,11 +13,8 @@
   object-fit: cover;
 }
 
-/* 로그인 버튼 외 */
-.header_rightBtn {
-  background-color: transparent;
-  border: 1px solid #aaa;
-  border-radius: 5px;
-  color: black;
-  height: 30px;
+/* 닉네임 및 버튼 부분 */
+.logged {
+  width: 48vw;
+  text-align: right;
 }
