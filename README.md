@@ -28,8 +28,8 @@ Jinja2
 JWT
 
 ## 📺 실행화면
-<br/> 
 https://youtu.be/pybQGohQdmA
+
 
 ## 📷 캡쳐
 
