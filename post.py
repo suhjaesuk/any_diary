@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify, Blueprint
 from pymongo import MongoClient
+from random import randint
 import certifi
 ca=certifi.where()
 client = MongoClient("mongodb+srv://test:qwer1234@cluster0.hju0g3t.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
@@ -19,7 +20,7 @@ def write_diary():
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.testUser.find_one({"userId": payload['userId']})
+        user_info = db.users.find_one({"userId": payload['userId']})
         return render_template('postDiary.html', username=user_info["username"])
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template('postDiary.html')
@@ -33,8 +34,8 @@ def post_diary():
     username_receive = request.form['username_give']
     userId_receive = request.form['userId_give']
 
-    countId = list(db.testContent.find({},{'_id':False}))
-    contentId = len(countId) + 1
+    countId = list(db.content.find({},{'_id':False}))
+    contentId = len(countId) + randint(0,1000)
 
     doc = {
         'title' : title_receive,
@@ -45,6 +46,6 @@ def post_diary():
         'username' : username_receive,
         'userId': userId_receive
     }
-    db.testContent.insert_one(doc)
+    db.contents.insert_one(doc)
 
     return jsonify({'msg' : '일기가 저장되었습니다.'})
