@@ -1,11 +1,11 @@
 /* 그리드 스타일 */
 
-.gridContainer {
+#gridContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   grid-auto-rows: minmax(360px, auto);
   gap: 2em;
-  padding: 40px;
+  padding: 40px 70px 40px;
   background-color: var(--gray-light);
 }
 
@@ -37,9 +37,11 @@ hr {
   opacity: unset;
 }
 
+/* 카드 제목부분 */
 .title {
   font-size: 1.8em;
   font-weight: 700;
+  /* 높이에 맞춰 글자 수 자르기 */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;

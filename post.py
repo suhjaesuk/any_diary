@@ -10,6 +10,7 @@ app = Flask(__name__)
 import jwt
 import datetime
 import hashlib
+from random import randint
 
 SECRET_KEY = 'SPARTAAAAA!!!'
 
@@ -34,7 +35,7 @@ def post_diary():
     userId_receive = request.form['userId_give']
 
     countId = list(db.testContent.find({},{'_id':False}))
-    contentId = len(countId) + 1
+    contentId = len(countId) + randint(0,1000)
 
     doc = {
         'title' : title_receive,

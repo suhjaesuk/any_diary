@@ -24,22 +24,46 @@
                         let date = rows[i]['date']
                         let emoticon = rows[i]['emoticon']
                         let temp_html = `
-                  {% if username %}
-                  <div class="item" onclick="location.href ='/readContent?id=${contentId}'">
-                      {% endif %}
-                      {% if not username %}
-                      <div class="item" onclick="alert('로그인 해주세요'); location.href ='/login';">
-                      {% endif %}
-                      <h3 class="title">${title}</h3>
-                      <hr><br>
-                      <p class="content">${content}</p><br>
-                      <p class="username">${username}</p>
-                      <p class="date">${date}</p>
-                      <p class="emoticon">${emoticon}</p>
-                  </div>
-          `
-                        $('.gridContainer').prepend(temp_html)
+                        {% if username %}
+                        <div class="item withId" id="${contentId}">
+                            {% endif %}
+
+                            {% if not username %}
+                            <div class="item">
+                            {% endif %}
+                            <h3 class="title">${title}</h3>
+                            <hr><br>
+                            <p class="content">${content}</p><br>
+                            <p class="username">${username}</p>
+                            <p class="date">${date}</p>
+                            <p class="emoticon">${emoticon}</p>
+                        </div> 
+                `
+                        $('#gridContainer').prepend(temp_html)
+                        const cards = document.querySelectorAll('.item')
+                        cards.forEach((card) => {
+                            card.onclick = (e) => {
+                                let cardId = e.target.id
+                                if (card.classList.contains('withId')) {
+                                    location.href = `/readContent?id=${cardId}`
+                                } else {
+                                    alert('로그인 해주세요.')
+                                    location.href = '/login'
+                                }
+                            }
+                        })
                     }
+                }
+            })
+        }
+        function mylist() {
+            $.ajax({
+                type: 'GET',
+                url: '/mylist',
+                data: {},
+                success: function (response) {
+                    $('#gridContainer').empty()
+                    console.log(response)
                 }
             })
         }
@@ -48,7 +72,7 @@
 
 <body>
     {% include "header.html" %}
-    <div class="gridContainer">
+    <div id="gridContainer">
     </div>
 
     <footer>ⓒ2022 어떤일기</footer>
