@@ -10,9 +10,7 @@ app.register_blueprint(content.bp)
 app.register_blueprint(post.bp)
 
 
-@app.errorhandler(404)
-@app.errorhandler(401)
-@app.errorhandler(500)
+@app.errorhandler(Exception)
 def page_not_found(error):
      return render_template('page_not_found.html'), 404
 
