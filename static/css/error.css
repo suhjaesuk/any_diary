@@ -3,6 +3,16 @@
           box-sizing: border-box;
 }
 
+.container_img{
+  height:50%;
+  width: 50%;
+}
+
+img {
+ width : 50%;
+ height: 50%;
+}
+
 body {
   padding: 0;
   margin: 0;
