@@ -21,7 +21,7 @@
         <div class="container">
             <div class="container-row container-row-journal">
                 <div class="container-item container-item-journal">
-                    <form id="entryForm" action="">
+                    <form id="entryForm" action="/modiSave" method="post">
                         <h2 class="title">일기 쓰기</h2>
                         <p class="title"> - - - - </p>
                         <label for="title" class="journal-label">제목</label>
@@ -33,7 +33,7 @@
                         <details>
                             <summary class="journal-label">감정 이모티콘🔻</summary>
                             <div class="wrap">
-                                <div class="list" id="emoticon">
+                                <div class="list" id="emoticon2" >
                                     <input type="radio" name="chk_info" value="😀" checked="checked">😀
                                     <input type="radio" name="chk_info" value="😄">😄
                                     <input type="radio" name="chk_info" value="😆">😆
@@ -48,7 +48,7 @@
                             </div>
                         </details>
                         <input type="hidden" name="contentId" value={{content.contentId}} />
-                        <button class="btn-main entry-submit-btn" form="entryForm" type="submit">수정하기</button>
+                        <button class="btn-main entry-submit-btn" id="modibutton" form="entryForm" type="button">수정하기</button>
                     </form>
                 </div>
             </div>
