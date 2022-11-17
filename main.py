@@ -5,10 +5,6 @@ app = Flask(__name__)
 from pymongo import MongoClient
 import certifi
 
-ca=certifi.where()
-client = MongoClient("mongodb+srv://test:qwer1234@cluster0.hju0g3t.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
-db = client.anyDiary
-
 SECRET_KEY = 'SPARTAAAAA!!!'
 
 import jwt
