@@ -39,13 +39,13 @@ def date_forming(content_info):
 def read():
     # 게시글 정보 가져오기
     contentId = int(request.args.get('id'))
-    content_info = db.content.find_one({'contentId': contentId})
+    content_info = db.contents.find_one({'contentId': contentId})
     content_info = date_forming(content_info)
 
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.user.find_one({"userId": payload['userId']})
+        user_info = db.users.find_one({"userId": payload['userId']})
         return render_template('readContent.html', username=user_info["username"], content=content_info)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template('readContent.html', content=content_info)
@@ -53,9 +53,8 @@ def read():
 
 @bp.route('/searchLike', methods=["POST"])
 def searchLike_post():
-    print('searchLike 함수')
-    print(request.form)
-    like_in_db = list(db.like.find({}, {'_id': False}))
+
+    like_in_db = list(db.likes.find({}, {'_id': False}))
     like_info = {}
     # 해당 유저가 해당 글에 좋아요 클릭했는지 판별
     like_info['clicked'] = False
@@ -76,7 +75,7 @@ def addLike_post():
     contentId = request.form['contentId']
     userId = request.form['userId']
     doc = {'userId': userId, 'contentId': contentId}
-    db.like.insert_one(doc)
+    db.likes.insert_one(doc)
     return jsonify({'state': 'like'})
 
 
@@ -85,7 +84,7 @@ def delLike_post():
 
     contentId = request.form['contentId']
     userId = request.form['userId']
-    db.like.delete_one({'userId': userId, 'contentId': contentId})
+    db.likes.delete_one({'userId': userId, 'contentId': contentId})
     return jsonify({'state': 'unlike'})
 
 
@@ -93,12 +92,12 @@ def delLike_post():
 def deleteContent_post():
 
     contentId = int(request.form['contentId'])
-    db.content.delete_one({'contentId': contentId})
+    db.contents.delete_one({'contentId': contentId})
 
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.user.find_one({"userId": payload['userId']})
+        user_info = db.users.find_one({"userId": payload['userId']})
         return render_template('index.html', username=user_info["username"])
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template('index.html')
@@ -109,12 +108,12 @@ def modiContent_post():
     # 게시글 정보 가져오기
 
     contentId = int(request.form['contentId'])
-    content_info = db.content.find_one({'contentId': contentId})
+    content_info = db.contents.find_one({'contentId': contentId})
     temp_date = content_info['date']
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.user.find_one({"userId": payload['userId']})
+        user_info = db.users.find_one({"userId": payload['userId']})
         return render_template('modiDiary.html', username=user_info["username"],userId=user_info["username"], content=content_info)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template('modiDiary.html', content=content_info)
@@ -124,14 +123,13 @@ def modiContent_post():
 def modiContent_save():
 
     contentId = int(request.form['contentId'])
-    #db.testContent.update(({'contentId': contentId},{'$set': doc}))
-    db.content.update_one(
+    db.contents.update_one(
         {'contentId': contentId},
         {"$set":
          {'title': request.form['title'],
           'content': request.form['content'],
           'emoticon': request.form['emoticon']
           }})
-    content_info = db.content.find_one({'contentId': contentId})
+    content_info = db.contents.find_one({'contentId': contentId})
     content_info = date_forming(content_info)
     return render_template('/readContent.html', content=content_info)
