@@ -1,4 +1,9 @@
 $(document).ready(function () {
-  $('#gridContainer').empty()
-  list_diary()
+  list_diary('/list')
+  $('#searchAll').click(function () {
+    list_diary('/list')
+  })
+  $('#searchMine').click(function () {
+    list_diary('/mylist')
+  })
 })

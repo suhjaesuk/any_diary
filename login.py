@@ -1,13 +1,13 @@
-from flask import Flask, render_template, jsonify, request,Blueprint
+import hashlib
+import datetime
+import jwt
+import certifi
+from pymongo import MongoClient
+from flask import Flask, render_template, jsonify, request, Blueprint
 
 app = Flask(__name__)
 
-from pymongo import MongoClient
-import certifi
-import jwt
-import datetime
-import hashlib
-ca=certifi.where()
+ca = certifi.where()
 
 SECRET_KEY = 'SPARTAAAAA!!!'
 
@@ -31,11 +31,9 @@ def login():
     return render_template('login.html', msg=msg)
 
 
-
 @bp.route('/register')
 def register():
     return render_template('register.html')
-
 
 
 #####  로그인을 위한 API  ######
@@ -50,7 +48,8 @@ def api_register():
     pw_receive = request.form['pw_give']
     username_receive = request.form['username_give']
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
-    db.users.insert_one({'userId': id_receive, 'password': pw_hash, 'username': username_receive})
+    db.users.insert_one(
+        {'userId': id_receive, 'password': pw_hash, 'username': username_receive})
 
     return jsonify({'result': 'success'})
 
@@ -103,7 +102,7 @@ def api_valid():
 
         # payload 안에 id가 들어있습니다. id로 유저정보를 찾습니다.
         userinfo = db.users.find_one({'userId': payload['userId']}, {'_id': 0})
-        return jsonify({'result': 'success', 'username':userinfo['username'], 'userId': userinfo['userId']})
+        return jsonify({'result': 'success', 'username': userinfo['username'], 'userId': userinfo['userId']})
 
     except jwt.ExpiredSignatureError:
         return jsonify({'result': 'fail', 'msg': '로그인 시간이 만료되었습니다.'})
@@ -111,7 +110,7 @@ def api_valid():
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
 
 
-#userid find one 하는게 더 나을것 같다.
+# userid find one 하는게 더 나을것 같다.
 @bp.route('/api/checkid', methods=['POST'])
 def c_id():
     chk_id = 0

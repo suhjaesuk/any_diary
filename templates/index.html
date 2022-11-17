@@ -9,14 +9,14 @@
     <meta property="og:description" content="오늘은 어떤 일이 있었나요? 여러분의 감정을 짧게 공유해주세요." />
     <meta property="og:image" content="/static/image/meta.png" />
     {% include 'form.html' %}
-
     <!-- 로그인 유무에 따라 카드 링크 다르게 설정-->
     <!-- !!!반드시 html 내 위치 유지!!! -->
     <script>
-        function list_diary() {
+        function list_diary(url) {
+            $('#gridContainer').empty()
             $.ajax({
                 type: 'GET',
-                url: '/list',
+                url: url,
                 data: {},
                 success: function (response) {
                     let rows = response['list_diary']
@@ -57,17 +57,6 @@
                             }
                         })
                     }
-                }
-            })
-        }
-        function mylist() {
-            $.ajax({
-                type: 'GET',
-                url: '/mylist',
-                data: {},
-                success: function (response) {
-                    $('#gridContainer').empty()
-                    console.log(response)
                 }
             })
         }

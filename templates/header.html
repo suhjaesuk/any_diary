@@ -15,8 +15,8 @@
       <h3>어서 와, <span id="username">{{ username }}</span>
       </h3>
       <button class="btn btn-outline-dark" onclick="alert('로그아웃 되었습니다.'); logout();">로그아웃</button>
-      <button class="btn btn-outline-dark" onclick="location.href='/writeDiary'">일기 쓰기</button>
-      <!-- <button class="btn btn-outline-dark" onclick="mylist()">내글 보기</button> -->
+      <button class="btn btn-outline-dark" onclick="location.href='/writeDiary'">일기쓰기</button>
+      <button class="btn btn-outline-dark" id="searchMine">내글보기</button>
       {% endif %}
       {% if not username %}
       <button class="btn btn-outline-dark" onclick="location.href='/login'">로그인</button>

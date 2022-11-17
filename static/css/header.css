@@ -4,17 +4,17 @@
   justify-content: space-between;
   align-items: center;
   background-color: #f6f6f6;
-  padding: 10px 40px 0;
+  padding: 20px 200px;
 }
 
 /* 로고 */
 .logo {
-  height: 18vh;
+  height: 12vh;
   object-fit: cover;
 }
 
 /* 닉네임 및 버튼 부분 */
 .logged {
-  width: 48vw;
+  width: 40vw;
   text-align: right;
 }

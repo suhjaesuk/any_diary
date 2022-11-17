@@ -111,7 +111,7 @@ def modiContent_post():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.users.find_one({"userId": payload['userId']})
-        return render_template('modiDiary.html', username=user_info["username"],userId=user_info["username"], content=content_info)
+        return render_template('modiDiary.html', username=user_info["username"], userId=user_info["username"], content=content_info)
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return render_template('modiDiary.html', content=content_info)
 
@@ -129,5 +129,5 @@ def modiContent_save():
           }})
     content_info = db.contents.find_one({'contentId': contentId})
     content_info = date_forming(content_info)
-    content_info['content'] = content_info['content'].replace('<br>','\n')
+    content_info['content'] = content_info['content'].replace('<br>', '\n')
     return render_template('/readContent.html', content=content_info)
