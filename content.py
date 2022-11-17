@@ -41,6 +41,7 @@ def read():
     contentId = int(request.args.get('id'))
     content_info = db.contents.find_one({'contentId': contentId})
     content_info = date_forming(content_info)
+    # content_info['content'] = content_info['content'].replace('<br>','\n\n')
 
     token_receive = request.cookies.get('mytoken')
     try:
@@ -90,7 +91,6 @@ def delLike_post():
 
 @bp.route('/home', methods=["POST"])
 def deleteContent_post():
-
     contentId = int(request.form['contentId'])
     db.contents.delete_one({'contentId': contentId})
 
@@ -132,4 +132,5 @@ def modiContent_save():
           }})
     content_info = db.contents.find_one({'contentId': contentId})
     content_info = date_forming(content_info)
+    content_info['content'] = content_info['content'].replace('<br>','\n')
     return render_template('/readContent.html', content=content_info)

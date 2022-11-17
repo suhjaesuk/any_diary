@@ -7,7 +7,7 @@
 
     <meta property="og:title" content="어떤일기, AnyDiary" />
     <meta property="og:description" content="오늘은 어떤 일이 있었나요? 여러분의 감정을 짧게 공유해주세요." />
-    <meta property="og:image" content="/static/image/meta.png"/>
+    <meta property="og:image" content="/static/image/meta.png" />
     {% include 'form.html' %}
 
     <!-- 로그인 유무에 따라 카드 링크 다르게 설정-->
@@ -33,14 +33,14 @@
                             {% endif %}
 
                             {% if not username %}
-                            <div class="item">
+                        <div class="item">
                             {% endif %}
-                            <h3 class="title">${title}</h3>
+                            <h3 class="title" id="${contentId}">${title}</h3>
                             <hr><br>
-                            <p class="content">${content}</p><br>
-                            <p class="username">${username}</p>
-                            <p class="date">${date}</p>
-                            <p class="emoticon">${emoticon}</p>
+                            <p class="content" id="${contentId}">${content}</p><br>
+                            <p class="username" id="${contentId}">${username}</p>
+                            <p class="date" id="${contentId}">${date}</p>
+                            <p class="emoticon" id="${contentId}">${emoticon}</p>
                         </div> 
                 `
                         $('#gridContainer').prepend(temp_html)

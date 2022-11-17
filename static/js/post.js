@@ -5,8 +5,8 @@ $.ajax({
     async: false,
     success: function (response) {
         console.log(response['username']);
-         console.log(response['userId']);
-         $('#userId').val(response['userId'])
+        console.log(response['userId']);
+        $('#userId').val(response['userId'])
         $('#username').val(response['username'])
     }
 });
@@ -14,7 +14,8 @@ $.ajax({
 function postDiary() {
     let check_content = document.getElementById("content");
     let title = $('#title').val()
-    let content = $('#content').val()
+    let content = $('#content').val().replace(/\n/g, "<br>")
+    // let content = $('#content').val()
     let emoticon = $('input[name="chk_info"]:checked').val()
     let userId = $('#userId').val()
     let username = $('#username').val()
