@@ -2,9 +2,7 @@ from flask import Flask, render_template, request, jsonify, Blueprint
 from pymongo import MongoClient
 from random import randint
 import certifi
-ca=certifi.where()
-client = MongoClient("mongodb+srv://test:qwer1234@cluster0.hju0g3t.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
-db = client.anyDiary
+
 
 app = Flask(__name__)
 
