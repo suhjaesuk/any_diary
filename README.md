@@ -8,12 +8,6 @@
 - 일기등록 수정 삭제 &nbsp;&nbsp;  <br/> 
 - 상세페이지 좋아요 &nbsp;&nbsp;  <br/> 
 
-## 👤 팀원 소개
-- 서재석 : https://velog.io/@suhjaesuk
-- 권령빈 : https://velog.io/@dev_ryank
-- 진효제 : https://hyo-je.tistory.com/
-- 서영철 : https://www.notion.so/9680d84543964c06a12a501178f8207e
-
 ## ⏳ 팀 프로젝트 기간
 2022.11.14 ~ 2022.11.17
 
@@ -56,3 +50,9 @@ https://youtu.be/pybQGohQdmA
 다른 사람이 쓴 일기 상세페이지 + 좋아요<br/>
 ![KakaoTalk_20221117_180712300_02](https://user-images.githubusercontent.com/84319636/202405697-55202f6c-7b23-4aee-97fa-faf2e8449c08.jpg)
 <br/> <br/>
+
+👤 팀원 소개
+- 서재석 : https://velog.io/@suhjaesuk
+- 권령빈 : https://velog.io/@dev_ryank
+- 진효제 : https://hyo-je.tistory.com/
+- 서영철 : https://www.notion.so/9680d84543964c06a12a501178f8207e
