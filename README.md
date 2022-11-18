@@ -1,4 +1,4 @@
-http://anydiary.shop
+사이트 링크 : http://anydiary.shop
 
 ## 🚢 항해99 미니프로젝트 &nbsp; 
 - 오늘은 어떤 일이 있었나요?  여러분의 감정을 공유해주세요.
