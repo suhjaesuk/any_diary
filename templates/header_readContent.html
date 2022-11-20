@@ -1,0 +1,25 @@
+<script>
+  function logout() {
+    document.cookie = 'mytoken' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    location.href = '/';
+  }
+</script>
+
+<nav class="header">
+  <div class="wrapper">
+    <a href="/">
+      <img src="../static/image/002-2.png" class="logo" alt="어떤일기">
+    </a>
+    <div class="logged">
+      {% if username %}
+      <h3>어서 와, <span id="username">{{ username }}</span>
+      </h3>
+      <button class="btn btn-outline-dark" onclick="alert('로그아웃 되었습니다.'); logout();">로그아웃</button>
+      <button class="btn btn-outline-dark" onclick="location.href='/writeDiary'">일기쓰기</button>
+      {% endif %}
+      {% if not username %}
+      <button class="btn btn-outline-dark" onclick="location.href='/login'">로그인</button>
+      {% endif %}
+    </div>
+  </div>
+</nav>
